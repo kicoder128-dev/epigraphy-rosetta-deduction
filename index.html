@@ -134,7 +134,7 @@
     }
 
     .clue-number {
-      background: var(--accent);
+      background: #8b6914;
       color: white;
       min-width: 28px;
       height: 28px;
@@ -162,17 +162,6 @@
       color: #3d2d19;
       font-size: 0.9rem;
       line-height: 1.4;
-    }
-
-    .clue-conclusion {
-      background: #e8f5e0;
-      padding: 0.3rem 0.6rem;
-      border-radius: 8px;
-      margin-top: 0.4rem;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: #2a5a15;
-      border-left: 3px solid #4f6d3a;
     }
 
     .matrix-box {
@@ -256,12 +245,6 @@
       background: #8b3a3a;
       color: white;
       animation: pulse 1s infinite;
-    }
-
-    .meaning-btn.recommended {
-      border-color: #2a6b1f;
-      box-shadow: 0 0 8px #4f6d3a88;
-      background: #e8f5e0;
     }
 
     @keyframes pulse {
@@ -373,17 +356,6 @@
       text-align: left;
     }
 
-    .example-box {
-      background: #fef9ee;
-      border: 2px dashed #ba9a6e;
-      border-radius: 15px;
-      padding: 0.8rem;
-      margin: 0.8rem 0;
-      text-align: left;
-      font-size: 0.85rem;
-      line-height: 1.5;
-    }
-
     .glyph-highlight {
       background: #fef3cd;
       padding: 0.1rem 0.3rem;
@@ -410,30 +382,30 @@
       <h1>ROSETTA DEDUCTION</h1>
     </header>
 
-    <div class="section-label">📜 Inscription to Decode</div>
+    <div class="section-label">📜 Unknown Inscription</div>
     <div class="inscription-box">
       <div class="glyph-sequence" id="glyphSequence"></div>
       <div class="current-translation" id="currentTranslation">Your translation: ? ? ? ?</div>
     </div>
 
-    <div class="section-label">🔍 Clues (Read in Order - Each Builds on the Last)</div>
+    <div class="section-label">🔍 Archaeological Evidence</div>
     <div class="clues-container" id="cluesContainer"></div>
 
-    <div class="section-label">🧩 Assign Meanings to Glyphs</div>
+    <div class="section-label">🧩 Logic Matrix — Assign Meanings</div>
     <div class="matrix-box">
       <div id="logicGrid"></div>
-      <div class="status-text" id="statusText">Click a meaning button to assign it to a glyph.</div>
+      <div class="status-text" id="statusText">Study the clues. Each word can only be used once.</div>
     </div>
 
-    <div class="section-label">📓 Check Your Translation</div>
+    <div class="section-label">📓 Validate Translation</div>
     <div class="notebook">
       <div class="input-row">
-        <input type="text" id="translationInput" placeholder="Type your translation (e.g. THE KING DIED REST)" autocomplete="off">
+        <input type="text" id="translationInput" placeholder="Type the complete phrase..." autocomplete="off">
         <button class="btn" id="validateBtn">🔎 Check</button>
       </div>
       <div id="messageBox"></div>
       <div class="button-row">
-        <button class="btn btn-gold" id="resetBtn">↺ Reset All</button>
+        <button class="btn btn-gold" id="resetBtn">↺ Reset</button>
         <button class="btn" id="newPuzzleBtn">🌀 New Puzzle</button>
       </div>
     </div>
@@ -443,62 +415,48 @@
     <div class="tutorial-card">
       <h2>🏺 How to Decipher the Script</h2>
       <div class="tutorial-step">
-        <strong>1. Look at the glyph sequence</strong> - These 4 symbols form a meaningful sentence.
+        <strong>1. Study the glyph sequence</strong> — Four symbols form a sentence in an unknown ancient language.
       </div>
       <div class="tutorial-step">
-        <strong>2. Read the clues IN ORDER</strong> - Clue 1 tells you something. Clue 2 builds on that. Clue 3 narrows it further. Each clue has a <span style="color:#2a5a15;">green conclusion</span> that tells you what a glyph means.
-      </div>
-      <div class="example-box">
-        <strong>Example deduction chain:</strong><br>
-        <strong>Clue 1:</strong> "Symbol A appears on royal objects" → <span style="color:#2a5a15;">Symbol A = KING</span><br>
-        <strong>Clue 2:</strong> "The symbol after KING means a death event" → <span style="color:#2a5a15;">Second symbol = DIED</span><br>
-        <strong>Clue 3:</strong> "The next symbol appears in tombs" → <span style="color:#2a5a15;">Third symbol = REST</span><br>
-        <strong>Clue 4:</strong> "The remaining symbol starts sentences" → <span style="color:#2a5a15;">Fourth symbol = THE</span>
+        <strong>2. Read the clues carefully</strong> — Each describes WHERE a glyph was found and WHAT it depicts. Cross-reference them to deduce meanings.
       </div>
       <div class="tutorial-step">
-        <strong>3. Click the green recommended buttons</strong> in the matrix. The game highlights which meaning each clue suggests.
+        <strong>3. Use logical deduction</strong> — If a glyph appears in a royal cartouche, it likely means KING. If it appears in a tomb scene showing death, it likely means DIED or REST. Process of elimination reveals the rest.
       </div>
       <div class="tutorial-step">
-        <strong>4. Type the full sentence</strong> - When all 4 glyphs have meanings, type the complete English sentence in the box.
+        <strong>4. Assign meanings</strong> — Click buttons in the matrix. The game won't tell you what's correct — it only checks for logical consistency (no duplicate meanings).
       </div>
-      <button class="btn" id="startGameBtn">Start Deciphering!</button>
+      <div class="tutorial-step">
+        <strong>5. Validate</strong> — When all 4 glyphs have meanings, type the full sentence. You'll know if you're right!
+      </div>
+      <button class="btn" id="startGameBtn">Begin Deciphering</button>
     </div>
   </div>
 
   <script>
-    // ============ GAME ENGINE ============
+    // ============ ROSETTA DEDUCTION ENGINE ============
     
-    // Puzzle templates with explicit glyph-to-meaning mapping
     const PUZZLES = [
       {
         sentence: "THE KING DIED REST",
-        // Map each position in the glyph array to its meaning
         solution: ["THE", "KING", "DIED", "REST"],
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
             title: "Royal Cartouche Analysis",
-            text: 'The second glyph appears inside royal cartouches (oval rings reserved for pharaohs). No other glyph appears this way in any inscription.',
-            conclusion: 'Therefore, the second glyph = KING. Only royalty gets a cartouche.',
-            reveals: 1  // index of glyph this clue is about
+            text: 'The second glyph appears inside royal cartouches — oval rings reserved exclusively for pharaohs. No other glyph in any inscription has been found inside a cartouche.',
           },
           {
             title: "Tomb Painting Observation",
-            text: 'A tomb painting shows the sequence of glyphs 2 and 3 above a scene of a pharaoh on his deathbed. The glyph after KING describes what happened to him.',
-            conclusion: 'Since the painting shows death, the third glyph (after KING) = DIED.',
-            reveals: 2
+            text: 'A tomb painting shows the second and third glyphs together above a deathbed scene. The glyph immediately following the royal one depicts what is happening to the pharaoh — his death.',
           },
           {
-            title: "Offering Table Inscription",
-            text: 'A stone offering table bears glyphs 3 and 4 next to food offerings for the afterlife. The fourth glyph represents what comes after death — eternal peace.',
-            conclusion: 'The fourth glyph relates to the afterlife state, so it = REST.',
-            reveals: 3
+            title: "Funerary Offering Table",
+            text: 'An offering table bears the third and fourth glyphs beside food and incense for the afterlife. The fourth glyph represents the eternal state after death — peaceful rest.',
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: 'A grammar text explains: sentences always begin with the first glyph. It functions as a determiner, like "the" in English. All other glyphs are now identified.',
-            conclusion: 'By elimination, the remaining first glyph = THE. The full sentence reads: THE KING DIED REST (The king died and rests eternally).',
-            reveals: 0
+            text: 'A grammar text explains that the first glyph is a function word starting every sentence. It acts as a determiner — like "the" in English. The other three glyphs have been identified from context.',
           }
         ]
       },
@@ -509,27 +467,19 @@
         clues: [
           {
             title: "Grammar Papyrus Fragment",
-            text: 'Every sentence begins with the first glyph. Grammar texts identify this as the definite article — like "the" in English. It marks the start of every statement.',
-            conclusion: 'Therefore, the first glyph = THE.',
-            reveals: 0
+            text: 'A grammar text identifies the first glyph as the sentence-opening particle. It functions identically to the English definite article "the" and appears at the start of every complete statement.',
           },
           {
-            title: "Family Register Carving",
-            text: 'A family tree carving shows the second glyph next to smaller figures identified as children and heirs. This glyph represents offspring in all genealogies.',
-            conclusion: 'The second glyph appears with children in family records, so it = SON.',
-            reveals: 1
+            title: "Family Genealogy Carving",
+            text: 'A family tree carving shows the second glyph next to smaller figures labeled as children. In every genealogy record, this glyph marks offspring and heirs.',
           },
           {
             title: "Royal Cartouche Analysis",
-            text: 'The fourth glyph appears exclusively in pharaoh\'s cartouches and royal inscriptions. No commoner\'s name ever contains this symbol.',
-            conclusion: 'The fourth glyph is exclusive to royalty, so it = KING.',
-            reveals: 3
+            text: 'The fourth glyph appears exclusively in pharaoh\'s cartouches. Royal inscriptions always contain this symbol — it never appears in commoners\' names or records.',
           },
           {
             title: "Funerary Chamber Mural",
-            text: 'The remaining third glyph is painted in peaceful burial scenes showing the deceased in eternal repose. It represents the state of peaceful afterlife.',
-            conclusion: 'By elimination, the third glyph = REST. Full sentence: THE SON REST KING (The son rests with the king in eternity).',
-            reveals: 2
+            text: 'The remaining third glyph appears in peaceful burial chamber paintings showing the deceased in repose. It represents the tranquil state of the afterlife.',
           }
         ]
       },
@@ -540,27 +490,19 @@
         clues: [
           {
             title: "Royal Cartouche Analysis",
-            text: 'The first glyph appears exclusively in pharaoh\'s cartouches. Royal names always begin with this symbol in every inscription found.',
-            conclusion: 'Therefore, the first glyph = KING. It marks royalty.',
-            reveals: 0
+            text: 'The first glyph is found exclusively inside pharaoh\'s cartouches. Every royal inscription begins with this symbol — it is the unmistakable mark of kingship.',
           },
           {
-            title: "Death Register Fragment",
-            text: 'A list of deceased pharaohs shows the first two glyphs together. The second glyph follows KING and marks the death event in the royal chronicle.',
-            conclusion: 'After KING, the second glyph records death, so it = DIED.',
-            reveals: 1
+            title: "Royal Death Chronicle",
+            text: 'A list recording deaths of pharaohs shows the first and second glyphs paired together. The glyph following the royal one records the death event itself.',
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: 'The third glyph appears between major words as a connector. It functions as a determiner/article like "the" — connecting subject to object.',
-            conclusion: 'The third glyph connects words, functioning as an article, so it = THE.',
-            reveals: 2
+            text: 'The third glyph appears between content words as a connector. Comparative analysis shows it functions as a determiner/article — equivalent to "the" in English.',
           },
           {
-            title: "Family Register Carving",
-            text: 'The remaining fourth glyph appears in succession lists next to depictions of royal heirs and princes throughout the temple.',
-            conclusion: 'By elimination, the fourth glyph = SON. Full sentence: KING DIED THE SON (The king died; the son succeeds).',
-            reveals: 3
+            title: "Succession List Carving",
+            text: 'The fourth glyph appears in records listing royal heirs. It marks the successor in every inheritance inscription — the pharaoh\'s child.',
           }
         ]
       },
@@ -570,37 +512,75 @@
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
-            title: "Family Register Carving",
-            text: 'The first glyph opens genealogies and inheritance records. It marks the child or heir in every family lineage inscription.',
-            conclusion: 'In family and inheritance contexts, the first glyph = SON.',
-            reveals: 0
+            title: "Family Genealogy Carving",
+            text: 'The first glyph opens every genealogy and inheritance record. It identifies the child or heir — the next generation in the family line.',
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: 'The second glyph is a function word appearing between subject and object in all texts. It works as a determiner/article.',
-            conclusion: 'As a connector between subject and object, the second glyph = THE.',
-            reveals: 1
+            text: 'The second glyph is a function word appearing between subject and object. It serves as a connector/determiner — equivalent to the English word "the".',
           },
           {
             title: "Royal Cartouche Analysis",
-            text: 'The third glyph appears exclusively in pharaoh\'s cartouches and royal palace inscriptions.',
-            conclusion: 'The royal glyph is the third one, so it = KING.',
-            reveals: 2
+            text: 'The third glyph appears in every pharaoh\'s cartouche. It is the definitive royal marker — never found outside of kingly inscriptions.',
           },
           {
-            title: "Funerary Chamber Mural",
-            text: 'The remaining fourth glyph appears in peaceful burial scenes and prayers for the deceased, representing eternal repose.',
-            conclusion: 'By elimination, the fourth glyph = REST. Full sentence: SON THE KING REST (The son rests with the king).',
-            reveals: 3
+            title: "Tomb Offering Chamber",
+            text: 'The remaining fourth glyph appears in prayers for the deceased, painted in burial chambers. It describes the peaceful eternal state wished for the dead.',
+          }
+        ]
+      },
+      {
+        sentence: "DIED KING THE SON",
+        solution: ["DIED", "KING", "THE", "SON"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Funerary Inscription Analysis",
+            text: 'The first glyph opens all funeral texts and death announcements. It is the word that marks the death event — the passing of an important figure.',
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: 'The second glyph follows the death marker in royal obituaries. It appears inside cartouches and identifies the deceased as a pharaoh.',
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: 'The third glyph connects the royal identifier to what follows. It is a function word — a determiner like "the" used between nouns.',
+          },
+          {
+            title: "Inheritance Record Carving",
+            text: 'The fourth glyph appears in lists of successors. It marks the heir who inherits after the pharaoh — the royal son.',
+          }
+        ]
+      },
+      {
+        sentence: "REST THE KING SON",
+        solution: ["REST", "THE", "KING", "SON"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Funerary Prayer Analysis",
+            text: 'The first glyph opens prayers for the deceased. It expresses the wish for eternal peace — a blessing found at the start of every funeral text.',
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: 'The second glyph connects the prayer to its subject. It functions as a determiner/article — equivalent to "the" in English grammar.',
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: 'The third glyph appears in pharaoh\'s cartouches exclusively. It is the royal identifier found in every kingly inscription.',
+          },
+          {
+            title: "Family Genealogy Carving",
+            text: 'The fourth glyph marks royal children in succession lists. It identifies the heir — the son of the pharaoh.',
           }
         ]
       }
     ];
 
     let currentPuzzle = null;
-    let assignments = {};  // glyphIndex -> word
+    let assignments = {};
 
-    // ============ FUNCTIONS ============
+    // ============ GAME LOGIC ============
 
     function shuffle(arr) {
       const a = [...arr];
@@ -627,15 +607,6 @@
         if (!assignments[i]) return false;
       }
       return true;
-    }
-
-    // Get the word that a clue reveals (based on the reveals index)
-    function getRevealedWord(clueIndex) {
-      const clue = currentPuzzle.clues[clueIndex];
-      if (clue && clue.reveals !== undefined) {
-        return currentPuzzle.solution[clue.reveals];
-      }
-      return null;
     }
 
     function generatePuzzle() {
@@ -667,22 +638,18 @@
 
     function renderClues() {
       const container = document.getElementById('cluesContainer');
+      const ordinals = ['first', 'second', 'third', 'fourth'];
       
       container.innerHTML = currentPuzzle.clues.map((clue, idx) => {
-        // Replace "first glyph", "second glyph" etc with actual glyph symbols
-        const ordinals = ['first', 'second', 'third', 'fourth'];
         let text = clue.text;
-        let conclusion = clue.conclusion;
         
+        // Replace ordinals with actual glyph symbols
         ordinals.forEach((ord, i) => {
           const glyphSymbol = currentPuzzle.glyphs[i];
           text = text.replace(new RegExp(ord + ' glyph', 'gi'), 
             '<span class="glyph-highlight">' + glyphSymbol + '</span>');
-          text = text.replace(new RegExp('glyph ' + (i + 1), 'gi'), 
-            '<span class="glyph-highlight">' + glyphSymbol + '</span>');
           text = text.replace(new RegExp('glyphs ' + (i + 1), 'gi'), 
             '<span class="glyph-highlight">' + glyphSymbol + '</span>');
-          conclusion = conclusion.replace(new RegExp(ord + ' glyph', 'gi'), glyphSymbol);
         });
         
         return `
@@ -691,7 +658,6 @@
             <div class="clue-content">
               <div class="clue-title">${clue.title}</div>
               <div class="clue-text">${text}</div>
-              <div class="clue-conclusion">💡 ${conclusion}</div>
             </div>
           </div>
         `;
@@ -706,14 +672,6 @@
       container.innerHTML = currentPuzzle.glyphs.map((glyph, idx) => {
         const assigned = assignments[idx] || '';
         
-        // Find which clue reveals this glyph
-        let recommendedWord = null;
-        currentPuzzle.clues.forEach(clue => {
-          if (clue.reveals === idx) {
-            recommendedWord = currentPuzzle.solution[idx];
-          }
-        });
-        
         return `
           <div class="glyph-row">
             <span class="glyph-icon ${assigned ? 'solved' : ''}">${glyph}</span>
@@ -725,18 +683,16 @@
                 const isSelected = assignments[idx] === word;
                 const isUsed = usedWords.has(word) && !isSelected;
                 const isConflicted = isSelected && !isConsistent();
-                const isRecommended = !isSelected && !isUsed && recommendedWord === word;
                 
                 let cls = 'meaning-btn';
                 if (isSelected) cls += ' selected';
                 if (isUsed) cls += ' locked';
                 if (isConflicted) cls += ' conflict';
-                if (isRecommended) cls += ' recommended';
                 
                 return `<button class="${cls}" 
                   data-glyph="${idx}" data-word="${word}"
                   ${isUsed ? 'disabled' : ''}
-                  title="${isUsed ? 'Already used for another glyph' : isRecommended ? '⭐ Recommended by clues!' : 'Click to assign'}">
+                  title="${isUsed ? 'Already assigned to another glyph' : 'Click to assign ' + word + ' to this glyph'}">
                   ${word}
                 </button>`;
               }).join('')}
@@ -744,15 +700,14 @@
           </div>`;
       }).join('');
       
-      // Update status
       const assignedCount = Object.values(assignments).filter(v => v).length;
       
       if (!isConsistent()) {
-        statusText.innerHTML = '⚠️ <span style="color:#aa3a2e;">Conflict!</span> Two glyphs have the same meaning. Each word can only be used once.';
+        statusText.innerHTML = '⚠️ <span style="color:#aa3a2e;">Conflict!</span> Two glyphs can\'t share the same meaning. Each word is unique.';
       } else if (assignedCount === currentPuzzle.glyphs.length) {
-        statusText.innerHTML = '✅ <span style="color:#2f5a1e;">All assigned!</span> Now type the complete sentence in the box below.';
+        statusText.innerHTML = '✅ <span style="color:#2f5a1e;">All glyphs assigned!</span> Type the sentence below to check if you\'re correct.';
       } else {
-        statusText.innerHTML = '📝 ' + assignedCount + '/' + currentPuzzle.glyphs.length + ' glyphs assigned. <span style="color:#2a6b1f;">Green buttons</span> = recommended by clues.';
+        statusText.innerHTML = '📝 ' + assignedCount + '/4 glyphs assigned. Study the clues to deduce the correct meanings.';
       }
       
       // Attach click handlers
@@ -762,9 +717,9 @@
           const word = this.dataset.word;
           
           if (assignments[glyphIdx] === word) {
-            assignments[glyphIdx] = null; // Deselect
+            assignments[glyphIdx] = null;
           } else {
-            assignments[glyphIdx] = word; // Select
+            assignments[glyphIdx] = word;
           }
           
           renderAll();
@@ -777,7 +732,7 @@
       const msgBox = document.getElementById('messageBox');
       
       if (!allAssigned()) {
-        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to every glyph first. Click the green recommended buttons!</div>';
+        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to every glyph first. All 4 glyphs need a word.</div>';
         return;
       }
       
@@ -789,14 +744,14 @@
       const yourSentence = currentPuzzle.glyphs.map((g, i) => assignments[i]).join(' ');
       
       if (input !== yourSentence) {
-        msgBox.innerHTML = '<div class="message error">Your sentence should be: <strong>"' + yourSentence + '"</strong> (based on your assignments above)</div>';
+        msgBox.innerHTML = '<div class="message error">Your sentence should read: <strong>"' + yourSentence + '"</strong> — that\'s what your assignments spell out.</div>';
         return;
       }
       
       if (input === currentPuzzle.sentence) {
-        msgBox.innerHTML = '<div class="message success">🏆 <strong>CORRECT!</strong> You\'ve deciphered the ancient inscription! Your logical deduction was perfect.</div>';
+        msgBox.innerHTML = '<div class="message success">🏆 <strong>CORRECT!</strong> You\'ve successfully deciphered the ancient inscription through logical deduction!</div>';
       } else {
-        msgBox.innerHTML = '<div class="message info">📖 Your logic is consistent, but this isn\'t the correct translation. Re-read the clues carefully!</div>';
+        msgBox.innerHTML = '<div class="message info">📖 Your logic is consistent but the translation is wrong. Re-read the clues — especially which glyphs appear in royal vs. family vs. funerary contexts.</div>';
       }
     }
 
@@ -819,7 +774,6 @@
       if (e.key === 'Enter') validate();
     });
 
-    // Tutorial
     document.getElementById('helpBtn').addEventListener('click', function() {
       document.getElementById('tutorialOverlay').style.display = 'flex';
     });
@@ -834,10 +788,9 @@
       }
     });
 
-    // ============ START GAME ============
+    // ============ START ============
     generatePuzzle();
-    console.log('🏺 Rosetta Deduction - Game initialized successfully!');
-    console.log('   Puzzle:', currentPuzzle.sentence);
+    console.log('🏺 Rosetta Deduction ready — solve the puzzle using the clues!');
   </script>
 </body>
 </html>
