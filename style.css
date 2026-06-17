@@ -1,0 +1,469 @@
+/* ============================================
+   EPIGRAPHY: THE ROSETTA DEDUCTION
+   Stylesheet - Archaeological Theme
+   ============================================ */
+
+:root {
+  --color-bg-dark: #1a120b;
+  --color-bg-medium: #2e2418;
+  --color-parchment: #e8d5b0;
+  --color-parchment-light: #f5e7cf;
+  --color-parchment-dark: #d4bb8c;
+  --color-stone: #c5ad82;
+  --color-stone-dark: #ad8f64;
+  --color-stone-light: #e1c7a0;
+  --color-wood: #7a5a38;
+  --color-wood-dark: #4f3822;
+  --color-text: #2e2214;
+  --color-text-light: #5a4028;
+  --color-accent: #4f6d3a;
+  --color-accent-gold: #d4a84b;
+  --color-danger: #8b3a3a;
+  --color-info: #365a2b;
+  --shadow-deep: 0 30px 55px rgba(0, 0, 0, 0.85);
+  --shadow-inset: inset 0 0 35px rgba(0, 0, 0, 0.35);
+  --border-radius-lg: 55px;
+  --border-radius-md: 35px;
+  --border-radius-sm: 20px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-bg-dark);
+  background-image: radial-gradient(circle at 25% 15%, #4a3520 5%, #0d0804 90%);
+  font-family: 'Crimson Text', 'Georgia', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+.game-container {
+  max-width: 880px;
+  width: 100%;
+  background: var(--color-parchment);
+  background-image: linear-gradient(160deg, var(--color-parchment-light) 0%, var(--color-parchment-dark) 100%);
+  border: 12px double var(--color-wood);
+  box-shadow: var(--shadow-deep), var(--shadow-inset);
+  border-radius: var(--border-radius-lg) var(--border-radius-lg) 45px 45px;
+  padding: 2rem 1.8rem 2.3rem;
+  color: var(--color-text);
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+/* Header */
+.game-header {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.game-header h1 {
+  font-size: 2.4rem;
+  letter-spacing: 5px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: #3d2c17;
+  text-shadow: 2px 2px 0 rgba(240, 225, 190, 0.9);
+  font-family: 'Cinzel', 'Georgia', serif;
+  border-bottom: 2px solid #ab8a5e;
+  padding-bottom: 0.4rem;
+}
+
+.subtitle {
+  font-style: italic;
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  letter-spacing: 2.5px;
+  margin-top: 0.3rem;
+}
+
+/* Temple Wall */
+.temple-wall {
+  background: var(--color-stone);
+  background-image: linear-gradient(0deg, var(--color-stone-dark) 0%, var(--color-stone-light) 100%);
+  padding: 1.3rem 1rem;
+  border-radius: 75px 75px 45px 45px;
+  box-shadow: inset 0 14px 20px rgba(0, 0, 0, 0.55), 0 12px 22px rgba(0, 0, 0, 0.65);
+  border: 2px solid #725839;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.glyph-inscription {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.glyph {
+  font-size: 3.5rem;
+  background: #fef8ec;
+  border: 3px solid var(--color-wood-dark);
+  border-radius: 24px;
+  padding: 0.4rem 0.9rem;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.19), 6px 6px 12px rgba(0, 0, 0, 0.5);
+  color: #201a0e;
+  font-family: 'Noto Sans Symbols', 'Segoe UI Historic', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.glyph:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 20px var(--color-accent-gold);
+}
+
+.glyph.partial-clue {
+  border-color: var(--color-accent-gold);
+  box-shadow: 0 0 15px rgba(212, 168, 75, 0.53);
+}
+
+.clue-badge {
+  background: #3d2c1a;
+  color: #f4e2be;
+  padding: 0.5rem 1.2rem;
+  border-radius: 32px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: inset 0 0 8px black;
+  font-size: 0.9rem;
+}
+
+/* Fragments */
+.fragments-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 0.8rem;
+  margin: 0.8rem 0 1.2rem;
+}
+
+.fragment-card {
+  background: #e3d1b3;
+  border: 3px solid #826644;
+  border-radius: var(--border-radius-md);
+  padding: 0.9rem 1rem;
+  background: #dfcbab;
+  box-shadow: inset 0 0 15px #5e4429;
+}
+
+.fragment-card.revealed {
+  border-color: #c4a35a;
+  box-shadow: 0 0 18px rgba(212, 168, 75, 0.4);
+}
+
+.context-text {
+  font-style: italic;
+  background: #faf2e2;
+  padding: 0.4rem 1rem;
+  border-radius: 25px;
+  font-weight: 500;
+  border: 1px solid #b39362;
+  font-size: 0.9rem;
+  display: inline-block;
+}
+
+.clue-detail {
+  font-size: 0.8rem;
+  color: #5a3f22;
+  margin-top: 0.3rem;
+  font-weight: 600;
+}
+
+/* Matrix Area */
+.matrix-area {
+  background: #efe2cc;
+  border: 3px solid #8d7352;
+  border-radius: 50px;
+  padding: 1.2rem 1rem;
+  margin: 1rem 0 1.2rem;
+  box-shadow: inset 0 0 22px rgba(80, 50, 20, 0.6);
+}
+
+.matrix-title {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #4d3922;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.csp-indicator {
+  font-size: 0.7rem;
+  background: #4f6d3a;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 15px;
+  letter-spacing: 1px;
+}
+
+.logic-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: #d8c09c;
+  padding: 0.4rem 0.8rem;
+  border-radius: 100px;
+  border: 1px solid #ba9a6e;
+}
+
+.glyph-small {
+  font-size: 2.2rem;
+  background: #fcf3e1;
+  border-radius: 18px;
+  padding: 0.2rem 0.8rem;
+  border: 2px solid #664f30;
+  min-width: 65px;
+  text-align: center;
+}
+
+.glyph-small.constrained {
+  background: #ffeebb;
+  border-color: #b3924b;
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.meaning-btn {
+  background: #f5e7d0;
+  border: 2px solid #7d5f3c;
+  border-radius: var(--border-radius-sm);
+  padding: 0.4rem 0.8rem;
+  font-weight: bold;
+  color: #3d2d19;
+  cursor: pointer;
+  transition: 0.15s;
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  font-family: 'Crimson Text', serif;
+}
+
+.meaning-btn.selected {
+  background: var(--color-accent);
+  border-color: #f5e7c6;
+  color: white;
+  box-shadow: 0 0 12px #c4ad6e;
+  border-width: 3px;
+}
+
+.meaning-btn.eliminated {
+  background: #c0b0a0;
+  border-color: #998877;
+  color: #665544;
+  text-decoration: line-through;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.meaning-btn.conflict {
+  background: var(--color-danger);
+  border-color: #ffccaa;
+  color: white;
+  animation: pulse 0.8s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.meaning-btn:active { 
+  transform: scale(0.96); 
+}
+
+.meaning-btn:not(.eliminated):hover { 
+  background: #dbb45c; 
+}
+
+.csp-status {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #5e4326;
+}
+
+.deduction-log {
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  color: #5a4028;
+  font-style: italic;
+  max-height: 60px;
+  overflow-y: auto;
+}
+
+/* Notebook Section */
+.notebook-section {
+  background: #f8f0de;
+  border: 3px solid #896e49;
+  border-radius: 38px;
+  padding: 1.1rem;
+  margin-top: 1rem;
+  box-shadow: inset 0 0 12px rgba(80, 45, 15, 0.5);
+}
+
+.notebook-title {
+  font-weight: bold;
+  color: #4b3720;
+}
+
+.syntax-display {
+  font-size: 0.9rem;
+  margin: 0.3rem 0;
+  color: #624a2a;
+}
+
+.translation-input {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: center;
+  margin: 0.7rem 0;
+}
+
+.translation-input input {
+  padding: 0.6rem 1rem;
+  border-radius: 30px;
+  border: 2px solid #af8c5c;
+  background: #fffdf5;
+  font-size: 0.95rem;
+  flex: 2;
+  min-width: 200px;
+  font-weight: 600;
+  font-family: 'Crimson Text', serif;
+}
+
+.validate-btn {
+  background: var(--color-info);
+  border: none;
+  color: #f7efd6;
+  font-weight: bold;
+  padding: 0.6rem 1.4rem;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #1e3318;
+  transition: 0.1s;
+  text-transform: uppercase;
+  font-family: 'Cinzel', 'Georgia', serif;
+}
+
+.validate-btn:active { 
+  box-shadow: 0 2px 0 #1e3318; 
+  transform: translateY(2px); 
+}
+
+.message-box {
+  font-weight: bold;
+  margin: 0.4rem 0;
+  color: #4a3823;
+  padding: 0.5rem;
+  border-radius: 15px;
+}
+
+.message-box.success {
+  background: #d4e8c0;
+  color: #2a4a15;
+}
+
+.message-box.error {
+  background: #f0d0d0;
+  color: #6b2020;
+}
+
+.message-box.info {
+  background: #d0ddf0;
+  color: #1a3050;
+}
+
+.button-group {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.reset-btn, 
+.new-puzzle-btn, 
+.hint-btn {
+  border: none;
+  padding: 0.5rem 1.4rem;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-family: 'Crimson Text', serif;
+  transition: all 0.2s;
+}
+
+.reset-btn {
+  background: #bc9a6e;
+}
+
+.new-puzzle-btn {
+  background: #6f5a3c;
+  color: #f3e1c2;
+}
+
+.hint-btn {
+  background: #8b7b5c;
+  color: #f5eedb;
+}
+
+.reset-btn:hover,
+.new-puzzle-btn:hover,
+.hint-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+.instructions {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  color: #644f32;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .game-container {
+    padding: 1rem;
+    border-radius: 30px;
+  }
+  
+  .game-header h1 {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+  
+  .glyph {
+    font-size: 2.5rem;
+  }
+  
+  .fragments-container {
+    grid-template-columns: 1fr;
+  }
+}
