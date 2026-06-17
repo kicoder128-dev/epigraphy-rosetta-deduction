@@ -29,7 +29,7 @@
     }
 
     .game-container {
-      max-width: 950px;
+      max-width: 900px;
       width: 100%;
       background: var(--parchment);
       background-image: linear-gradient(160deg, #f5e7cf 0%, #d4bb8c 100%);
@@ -60,13 +60,13 @@
 
     header {
       text-align: center;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       border-bottom: 2px solid #ab8a5e;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.4rem;
     }
 
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
       letter-spacing: 4px;
       color: #3d2c17;
       text-shadow: 2px 2px 0 rgba(240,225,190,0.9);
@@ -77,83 +77,108 @@
       text-transform: uppercase;
       letter-spacing: 2px;
       color: #6b5535;
-      margin-bottom: 0.3rem;
+      margin: 0.8rem 0 0.3rem;
       font-weight: bold;
     }
 
-    .temple-wall {
+    /* The inscription to decode */
+    .inscription-box {
       background: var(--stone);
       background-image: linear-gradient(0deg, #ad8f64 0%, #e1c7a0 100%);
-      padding: 1rem;
-      border-radius: 50px;
-      box-shadow: inset 0 10px 20px rgba(0,0,0,0.5), 0 8px 15px rgba(0,0,0,0.5);
+      padding: 1.2rem;
+      border-radius: 30px;
+      box-shadow: inset 0 8px 15px rgba(0,0,0,0.5), 0 8px 15px rgba(0,0,0,0.5);
       border: 2px solid #725839;
-      margin-bottom: 1rem;
       text-align: center;
+      margin-bottom: 1rem;
     }
 
-    .inscription-display {
+    .glyph-sequence {
       font-size: 3rem;
-      letter-spacing: 0.5rem;
+      letter-spacing: 0.8rem;
       font-family: 'Noto Sans Symbols', 'Segoe UI Historic', sans-serif;
       background: #fef8ec;
       display: inline-block;
-      padding: 0.8rem 2rem;
-      border-radius: 25px;
+      padding: 0.6rem 1.5rem;
+      border-radius: 20px;
       border: 3px solid #4f3822;
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.2), 4px 4px 8px rgba(0,0,0,0.4);
-      margin: 0.5rem 0;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
     }
 
-    .inscription-meaning {
-      font-size: 1.2rem;
+    .current-translation {
+      font-size: 1.3rem;
       color: #5a3f22;
+      margin-top: 0.5rem;
       font-style: italic;
-      margin-top: 0.3rem;
+      letter-spacing: 0.1rem;
     }
 
-    .clues-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 0.7rem;
+    /* Clues - now in a clear numbered order */
+    .clues-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
       margin-bottom: 1rem;
     }
 
     .clue-card {
-      background: #dfcbab;
-      border: 2px solid #826644;
-      border-radius: 20px;
-      padding: 0.8rem;
-      box-shadow: inset 0 0 10px #5e442955;
-      font-size: 0.9rem;
+      background: #faf3e0;
+      border: 2px solid #c4a35a;
+      border-radius: 15px;
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
     }
 
-    .clue-card.connected {
-      border-left: 4px solid var(--gold);
+    .clue-number {
+      background: var(--accent);
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+
+    .clue-content {
+      flex: 1;
     }
 
     .clue-title {
       font-weight: bold;
-      color: #5a3f22;
-      margin-bottom: 0.3rem;
+      color: #4a3520;
+      margin-bottom: 0.2rem;
+      font-size: 0.9rem;
     }
 
-    .clue-body {
+    .clue-text {
       color: #3d2d19;
-      line-height: 1.5;
+      font-size: 0.9rem;
+      line-height: 1.4;
     }
 
-    .clue-highlight {
-      background: #fef3cd;
-      padding: 0.1rem 0.4rem;
-      border-radius: 4px;
+    .clue-conclusion {
+      background: #e8f5e0;
+      padding: 0.3rem 0.6rem;
+      border-radius: 8px;
+      margin-top: 0.4rem;
+      font-size: 0.85rem;
       font-weight: bold;
+      color: #2a5a15;
+      border-left: 3px solid #4f6d3a;
     }
 
+    /* Matrix */
     .matrix-box {
       background: #efe2cc;
       border: 3px solid #8d7352;
-      border-radius: 30px;
+      border-radius: 25px;
       padding: 1rem;
       margin-bottom: 1rem;
       box-shadow: inset 0 0 20px rgba(80,50,20,0.4);
@@ -162,28 +187,29 @@
     .glyph-row {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
       background: #d8c09c;
       padding: 0.5rem 0.8rem;
-      border-radius: 50px;
+      border-radius: 40px;
       margin-bottom: 0.5rem;
       border: 1px solid #ba9a6e;
     }
 
-    .glyph-small {
+    .glyph-icon {
       font-size: 2rem;
       background: #fcf3e1;
       border-radius: 15px;
       padding: 0.3rem 0.7rem;
       border: 2px solid #664f30;
-      min-width: 60px;
+      min-width: 55px;
       text-align: center;
     }
 
-    .glyph-small.deduced {
-      border-color: var(--accent);
-      background: #e8f5e0;
+    .glyph-icon.solved {
+      border-color: #2a6b1f;
+      background: #e0f0d5;
+      box-shadow: 0 0 10px #4f6d3a66;
     }
 
     .meaning-btns {
@@ -192,7 +218,7 @@
       gap: 0.3rem;
     }
 
-    .meaning-option {
+    .meaning-btn {
       background: #f5e7d0;
       border: 2px solid #7d5f3c;
       border-radius: 20px;
@@ -200,38 +226,40 @@
       font-weight: bold;
       color: #3d2d19;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       transition: 0.15s;
     }
 
-    .meaning-option:hover:not(.eliminated):not(.locked) { 
+    .meaning-btn:hover:not(.locked) { 
       background: #dbb45c; 
+      transform: scale(1.05);
     }
 
-    .meaning-option.selected {
+    .meaning-btn.selected {
       background: #4f6d3a;
       color: white;
       border-color: #f5e7c6;
       box-shadow: 0 0 10px #c4ad6e;
     }
 
-    .meaning-option.eliminated {
+    .meaning-btn.locked {
       background: #c0b0a0;
-      color: #665544;
+      color: #887766;
       text-decoration: line-through;
       cursor: not-allowed;
       opacity: 0.5;
     }
 
-    .meaning-option.conflict {
+    .meaning-btn.conflict {
       background: #8b3a3a;
       color: white;
       animation: pulse 1s infinite;
     }
 
-    .meaning-option.deduced {
+    .meaning-btn.recommended {
       border-color: #2a6b1f;
       box-shadow: 0 0 8px #4f6d3a88;
+      background: #e8f5e0;
     }
 
     @keyframes pulse {
@@ -239,40 +267,23 @@
       50% { opacity: 0.5; }
     }
 
-    .deduction-panel {
-      background: #f0e8d5;
-      border: 2px solid #ba9a6e;
-      border-radius: 20px;
-      padding: 0.8rem;
-      margin-bottom: 1rem;
-      font-size: 0.85rem;
+    .status-text {
+      font-size: 0.8rem;
+      color: #5e4326;
+      margin-top: 0.3rem;
+      font-style: italic;
     }
 
-    .deduction-step {
-      margin: 0.3rem 0;
-      padding: 0.3rem 0.5rem;
-      border-radius: 10px;
-    }
-
-    .deduction-step.completed {
-      background: #d4e8c0;
-      color: #2a4a15;
-    }
-
-    .deduction-step.pending {
-      background: #fef3cd;
-      color: #856404;
-    }
-
+    /* Notebook */
     .notebook {
       background: #f8f0de;
       border: 3px solid #896e49;
-      border-radius: 30px;
+      border-radius: 25px;
       padding: 1rem;
       box-shadow: inset 0 0 12px rgba(80,45,15,0.4);
     }
 
-    .translation-row {
+    .input-row {
       display: flex;
       gap: 0.5rem;
       align-items: center;
@@ -280,7 +291,7 @@
       flex-wrap: wrap;
     }
 
-    .translation-row input {
+    .input-row input {
       padding: 0.6rem 1rem;
       border-radius: 25px;
       border: 2px solid #af8c5c;
@@ -300,19 +311,18 @@
       font-size: 0.9rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 4px 0 #2a4020;
+      box-shadow: 0 3px 0 #2a4020;
       transition: all 0.2s;
       font-family: inherit;
     }
 
     .btn:hover { filter: brightness(1.1); }
-    .btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #2a4020; }
-    .btn-gold { background: #b8943a; box-shadow: 0 4px 0 #7a6020; }
-    .btn-small { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+    .btn:active { transform: translateY(2px); box-shadow: 0 1px 0 #2a4020; }
+    .btn-gold { background: #b8943a; box-shadow: 0 3px 0 #7a6020; }
 
     .message {
       padding: 0.5rem;
-      border-radius: 15px;
+      border-radius: 12px;
       margin: 0.5rem 0;
       font-weight: bold;
       font-size: 0.9rem;
@@ -321,15 +331,15 @@
     .message.success { background: #d4e8c0; color: #2a4a15; }
     .message.error { background: #f0d0d0; color: #6b2020; }
     .message.info { background: #d0ddf0; color: #1a3050; }
-    .message.hint { background: #fff3cd; color: #856404; }
 
     .button-row {
       display: flex;
       gap: 0.5rem;
       flex-wrap: wrap;
-      margin-top: 0.5rem;
+      margin-top: 0.3rem;
     }
 
+    /* Tutorial */
     .tutorial-overlay {
       background: rgba(0,0,0,0.85);
       position: fixed;
@@ -346,22 +356,18 @@
       border: 5px solid var(--gold);
       border-radius: 30px;
       padding: 2rem;
-      max-width: 650px;
+      max-width: 600px;
       text-align: center;
       box-shadow: 0 20px 40px rgba(0,0,0,0.7);
       max-height: 90vh;
       overflow-y: auto;
     }
 
-    .tutorial-card h2 {
-      font-size: 1.6rem;
-      color: #3d2c17;
-      margin-bottom: 1rem;
-    }
+    .tutorial-card h2 { font-size: 1.5rem; color: #3d2c17; margin-bottom: 1rem; }
 
     .tutorial-step {
-      font-size: 1rem;
-      margin: 0.8rem 0;
+      font-size: 0.95rem;
+      margin: 0.6rem 0;
       line-height: 1.5;
       text-align: left;
     }
@@ -370,17 +376,27 @@
       background: #fef9ee;
       border: 2px dashed #ba9a6e;
       border-radius: 15px;
-      padding: 1rem;
-      margin: 1rem 0;
+      padding: 0.8rem;
+      margin: 0.8rem 0;
       text-align: left;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .glyph-highlight {
+      background: #fef3cd;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-weight: bold;
+      font-family: 'Noto Sans Symbols', 'Segoe UI Historic', sans-serif;
     }
 
     @media (max-width: 600px) {
       .game-container { padding: 0.8rem; border-radius: 25px; }
-      h1 { font-size: 1.5rem; }
-      .inscription-display { font-size: 2.2rem; padding: 0.5rem 1rem; }
-      .clues-grid { grid-template-columns: 1fr; }
+      h1 { font-size: 1.4rem; }
+      .glyph-sequence { font-size: 2.2rem; letter-spacing: 0.4rem; }
+      .glyph-icon { font-size: 1.6rem; }
+      .clue-card { flex-direction: column; }
     }
   </style>
 </head>
@@ -394,42 +410,34 @@
     </header>
 
     <!-- THE INSCRIPTION -->
-    <div class="section-label">📜 The Inscription You Must Decode</div>
-    <div class="temple-wall">
-      <div class="inscription-display" id="inscriptionDisplay"></div>
-      <div class="inscription-meaning" id="inscriptionMeaning">Translation: ? ? ? ?</div>
+    <div class="section-label">📜 Inscription to Decode</div>
+    <div class="inscription-box">
+      <div class="glyph-sequence" id="glyphSequence"></div>
+      <div class="current-translation" id="currentTranslation">Your translation: ? ? ? ?</div>
     </div>
 
     <!-- LOGICAL CLUES -->
-    <div class="section-label">🔍 Archaeological Evidence (Logically Connected)</div>
-    <div class="clues-grid" id="cluesGrid"></div>
+    <div class="section-label">🔍 Clues (Read in Order - Each Builds on the Last)</div>
+    <div class="clues-container" id="cluesContainer"></div>
 
-    <!-- DEDUCTION CHAIN -->
-    <div class="section-label">🧠 Your Deduction Chain</div>
-    <div class="deduction-panel" id="deductionPanel">
-      <div class="deduction-step pending">🔷 No deductions yet. Use the clues to make logical connections!</div>
-    </div>
-
-    <!-- LOGIC MATRIX -->
+    <!-- MATRIX -->
     <div class="section-label">🧩 Assign Meanings to Glyphs</div>
     <div class="matrix-box">
       <div id="logicGrid"></div>
-      <div id="statusBar" style="font-size:0.8rem; color:#5e4326; margin-top:0.5rem; font-style:italic;">
-        Waiting for assignments...
-      </div>
+      <div class="status-text" id="statusText">Click a meaning button to assign it to a glyph.</div>
     </div>
 
-    <!-- TRANSLATION -->
-    <div class="section-label">📓 Validate Your Translation</div>
+    <!-- VALIDATION -->
+    <div class="section-label">📓 Check Your Translation</div>
     <div class="notebook">
-      <div class="translation-row">
-        <input type="text" id="translationInput" placeholder="Type the complete phrase..." autocomplete="off">
-        <button class="btn" id="validateBtn">🔎 Validate</button>
+      <div class="input-row">
+        <input type="text" id="translationInput" placeholder="Type your translation (e.g. THE KING DIED)" autocomplete="off">
+        <button class="btn" id="validateBtn">🔎 Check</button>
       </div>
       <div id="messageBox"></div>
       <div class="button-row">
-        <button class="btn btn-small" id="resetBtn">↺ Reset</button>
-        <button class="btn btn-small btn-gold" id="newPuzzleBtn">🌀 New Puzzle</button>
+        <button class="btn btn-gold" id="resetBtn">↺ Reset All</button>
+        <button class="btn" id="newPuzzleBtn">🌀 New Puzzle</button>
       </div>
     </div>
   </div>
@@ -437,63 +445,209 @@
   <!-- TUTORIAL -->
   <div class="tutorial-overlay" id="tutorialOverlay">
     <div class="tutorial-card">
-      <h2>🏺 How Logical Deduction Works</h2>
+      <h2>🏺 How to Decipher the Script</h2>
       <div class="tutorial-step">
-        <strong>1. The Inscription</strong><br>
-        You see a sequence of glyphs. Your job: find what each glyph means and what the whole phrase says.
+        <strong>1. Look at the glyph sequence</strong> - These 4 symbols form a meaningful sentence.
       </div>
       <div class="tutorial-step">
-        <strong>2. The Clues Are Connected</strong><br>
-        Unlike random hints, each clue builds on others. For example:
+        <strong>2. Read the clues IN ORDER</strong> - Clue 1 tells you something. Clue 2 builds on that. Clue 3 narrows it further. Each clue has a <span style="color:#2a5a15;">green conclusion</span>.
       </div>
       <div class="example-box">
-        <strong>Clue A:</strong> "The glyph before ⚰️ means a family role"<br>
-        <strong>Clue B:</strong> "⚰️ appears in burial contexts"<br>
-        <strong>Deduction:</strong> ⚰️ might mean DIED or REST<br>
-        <strong>Clue C:</strong> "The family role glyph is never with royalty"<br>
-        <strong>Deduction:</strong> Family role ≠ KING, so it's SON → ⚰️ is DIED (since REST goes with royalty)
+        <strong>Example deduction chain:</strong><br>
+        <strong>Clue 1:</strong> "Symbol A appears on royal objects" → Symbol A = KING<br>
+        <strong>Clue 2:</strong> "The symbol after KING means a relationship" → Second symbol = SON<br>
+        <strong>Clue 3:</strong> "The last symbol appears in tombs" → Last symbol = DIED or REST<br>
+        <strong>Clue 4:</strong> "The sentence means: The king's son died" → Third symbol = DIED, Fourth = REST
       </div>
       <div class="tutorial-step">
-        <strong>3. The Deduction Panel</strong><br>
-        Tracks what you can logically conclude. Use it to guide your assignments.
+        <strong>3. Assign meanings</strong> - Click buttons in the matrix. Green highlighted buttons are recommended by the clues.
       </div>
       <div class="tutorial-step">
-        <strong>4. The Matrix</strong><br>
-        Assign meanings. The game will cross out impossible options based on your deductions.
+        <strong>4. Type the full sentence</strong> - When all 4 glyphs have meanings, type the complete English sentence.
       </div>
-      <button class="btn" id="startGameBtn">Begin Deciphering!</button>
+      <button class="btn" id="startGameBtn">Start Deciphering!</button>
     </div>
   </div>
 
   <script>
-    // ============ LOGICAL DEDUCTION ENGINE ============
+    // ============ LOGICAL DEDUCTION GAME ============
     
-    const SYMBOLS = ["𓀀", "𓁛", "𓃀", "⚰️", "𓋹", "𓆣", "𓂀", "𓅓"];
-    const WORDS = ["KING", "SON", "DIED", "REST", "PRIEST", "TEMPLE", "OFFERING", "ETERNAL"];
+    const SYMBOLS = ["𓀀", "𓁛", "𓃀", "⚰️", "𓋹", "𓆣"];
     
-    // Semantic categories for logical relationships
-    const CATEGORIES = {
-      ROYALTY: ["KING"],
-      FAMILY: ["SON"],
-      DEATH: ["DIED", "REST"],
-      RELIGION: ["PRIEST", "TEMPLE", "OFFERING"],
-      ABSTRACT: ["ETERNAL"]
-    };
+    // Predefined logical puzzle templates
+    // Each template has: a meaningful English sentence, word-to-glyph mapping, and deduction clues
+    const PUZZLE_TEMPLATES = [
+      {
+        sentence: "THE KING DIED REST",
+        words: ["THE", "KING", "DIED", "REST"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Royal Cartouche Analysis",
+            text: 'The glyph <span class="glyph-highlight">𓁛</span> always appears inside royal cartouches (oval rings reserved for pharaohs). No other glyph appears this way.',
+            conclusion: "Therefore, 𓁛 = KING (the only royal word in this language)"
+          },
+          {
+            title: "Tomb Painting Observation",
+            text: 'In a tomb painting, the sequence <span class="glyph-highlight">𓁛 𓃀</span> appears above a scene showing a pharaoh on his deathbed. The glyph after KING describes what happened to him.',
+            conclusion: "Since the pharaoh is dying in the scene, the glyph after KING (𓃀) must mean DIED"
+          },
+          {
+            title: "Offering Table Inscription",
+            text: 'A stone offering table bears the phrase <span class="glyph-highlight">𓃀 ⚰️</span> next to an image of food offerings for the afterlife. The glyph ⚰️ represents what comes after death.',
+            conclusion: "⚰️ appears after DIED and relates to the afterlife, so ⚰️ = REST (eternal rest)"
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: 'A grammar text explains: sentences begin with <span class="glyph-highlight">𓀀</span> which is a determiner (like "the" or "a"). It marks the start of a statement.',
+            conclusion: "By elimination, the remaining glyph 𓀀 = THE. The full sentence reads: THE KING DIED REST (meaning: The king died and rests eternally)"
+          }
+        ]
+      },
+      {
+        sentence: "THE SON REST KING",
+        words: ["THE", "SON", "REST", "KING"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Grammar Papyrus Fragment",
+            text: 'Every sentence begins with <span class="glyph-highlight">𓀀</span>. Grammar texts identify this as the definite article, like "the" in English.',
+            conclusion: "Therefore, 𓀀 = THE (it always starts sentences)"
+          },
+          {
+            title: "Family Register Carving",
+            text: 'A family tree carving shows <span class="glyph-highlight">𓁛</span> next to smaller figures identified as children. This glyph represents offspring.',
+            conclusion: "𓁛 appears in family contexts with children, so 𓁛 = SON"
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: 'The glyph <span class="glyph-highlight">⚰️</span> appears only in royal cartouches reserved for pharaohs. No common person's name contains this glyph.',
+            conclusion: "⚰️ is exclusive to royalty, so ⚰️ = KING"
+          },
+          {
+            title: "Funerary Chamber Mural",
+            text: 'A mural shows <span class="glyph-highlight">𓃀</span> painted on a peaceful burial scene with the deceased lying in repose. It represents the state of peaceful death.',
+            conclusion: "By elimination, the remaining glyph 𓃀 = REST. The full sentence: THE SON REST KING (meaning: The son rests with the king)"
+          }
+        ]
+      },
+      {
+        sentence: "KING DIED THE SON",
+        words: ["KING", "DIED", "THE", "SON"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Royal Cartouche Analysis",
+            text: '<span class="glyph-highlight">𓀀</span> appears exclusively in pharaoh\'s cartouches. Royal names always contain this glyph.',
+            conclusion: "Therefore, 𓀀 = KING (the royal identifier)"
+          },
+          {
+            title: "Death Register Fragment",
+            text: 'A list of deceased pharaohs shows <span class="glyph-highlight">𓀀 𓁛</span> before each entry. The second glyph marks the death event.',
+            conclusion: "After KING, the glyph 𓁛 records the death, so 𓁛 = DIED"
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: '<span class="glyph-highlight">𓃀</span> appears between major words as a connector. It functions as a determiner like "the".',
+            conclusion: "𓃀 connects words and acts as an article, so 𓃀 = THE"
+          },
+          {
+            title: "Family Register Carving",
+            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in family trees next to depictions of royal children and heirs.',
+            conclusion: "By elimination, ⚰️ = SON. Full sentence: KING DIED THE SON (meaning: The king died, the son [inherits])"
+          }
+        ]
+      },
+      {
+        sentence: "SON THE KING REST",
+        words: ["SON", "THE", "KING", "REST"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Family Register Carving",
+            text: '<span class="glyph-highlight">𓀀</span> appears first in genealogies, marking the child or heir in family lineages.',
+            conclusion: "In family contexts, 𓀀 = SON (the heir or child)"
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: '<span class="glyph-highlight">𓁛</span> is a function word that appears between subject and object. It works as a determiner/article.',
+            conclusion: "As a connector word, 𓁛 = THE"
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: '<span class="glyph-highlight">𓃀</span> appears exclusively in pharaoh\'s cartouches and royal inscriptions.',
+            conclusion: "The royal glyph 𓃀 = KING"
+          },
+          {
+            title: "Funerary Chamber Mural",
+            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in peaceful burial scenes showing eternal repose.',
+            conclusion: "By elimination, ⚰️ = REST. Full sentence: SON THE KING REST (meaning: The son rests with the king)"
+          }
+        ]
+      },
+      {
+        sentence: "DIED KING THE SON",
+        words: ["DIED", "KING", "THE", "SON"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Death Register Fragment",
+            text: '<span class="glyph-highlight">𓀀</span> opens funeral inscriptions. It marks the death event itself.',
+            conclusion: "Opening funeral texts, 𓀀 = DIED"
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: '<span class="glyph-highlight">𓁛</span> follows death-glyphs in royal obituaries. It identifies the deceased pharaoh.',
+            conclusion: "After DIED, the royal glyph 𓁛 = KING"
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: '<span class="glyph-highlight">𓃀</span> connects nouns in sequence. It functions as an article/determiner.',
+            conclusion: "As a connector between nouns, 𓃀 = THE"
+          },
+          {
+            title: "Family Register Carving",
+            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in inheritance records marking the heir.',
+            conclusion: "By elimination, ⚰️ = SON. Full sentence: DIED KING THE SON (meaning: The king died, the son [succeeds])"
+          }
+        ]
+      },
+      {
+        sentence: "REST THE KING SON",
+        words: ["REST", "THE", "KING", "SON"],
+        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
+        clues: [
+          {
+            title: "Funerary Chamber Mural",
+            text: '<span class="glyph-highlight">𓀀</span> opens prayers for the deceased. It expresses the wish for peaceful rest.',
+            conclusion: "Opening funerary prayers, 𓀀 = REST"
+          },
+          {
+            title: "Grammar Papyrus Fragment",
+            text: '<span class="glyph-highlight">𓁛</span> is a function word connecting the prayer to its subject. It means "the".',
+            conclusion: "As an article/connector, 𓁛 = THE"
+          },
+          {
+            title: "Royal Cartouche Analysis",
+            text: '<span class="glyph-highlight">𓃀</span> identifies the pharaoh in all royal inscriptions.',
+            conclusion: "The royal glyph 𓃀 = KING"
+          },
+          {
+            title: "Family Register Carving",
+            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> marks royal children in succession lists.',
+            conclusion: "By elimination, ⚰️ = SON. Full sentence: REST THE KING SON (meaning: May the king's son rest)"
+          }
+        ]
+      }
+    ];
 
-    let glyphs = [];
-    let meanings = [];
-    let solution = {};
+    let currentPuzzle = null;
     let assignments = {};
     let eliminated = {};
     let syntaxOrder = [];
-    let correctPhrase = "";
-    
-    // Logical clue system
-    let logicalClues = [];
-    let deductionSteps = [];
 
-    // ============ LOGIC ENGINE ============
-    
+    // ============ GAME LOGIC ============
+
     function shuffle(arr) {
       const a = [...arr];
       for (let i = a.length - 1; i > 0; i--) {
@@ -503,232 +657,80 @@
       return a;
     }
 
-    function getCategory(word) {
-      for (let [cat, words] of Object.entries(CATEGORIES)) {
-        if (words.includes(word)) return cat;
-      }
-      return null;
-    }
-
     function isConsistent() {
       const used = new Set(Object.values(assignments).filter(v => v));
-      for (let i = 0; i < glyphs.length; i++) {
+      for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
         if (assignments[i]) continue;
-        const available = meanings.filter(m => !used.has(m) && !(eliminated[i]?.has(m)));
+        const available = currentPuzzle.words.filter(w => !used.has(w) && !(eliminated[i]?.has(w)));
         if (available.length === 0) return false;
       }
       return used.size === Object.values(assignments).filter(v => v).length;
     }
 
     function allAssigned() {
-      return Object.values(assignments).filter(v => v).length === glyphs.length;
+      return Object.values(assignments).filter(v => v).length === currentPuzzle.glyphs.length;
     }
 
-    // ============ LOGICAL CLUE GENERATION ============
-    
-    function generateLogicalClues() {
-      logicalClues = [];
-      deductionSteps = [];
-      
-      // Create a network of interconnected clues
-      // Each clue references positions, categories, or relationships
-      
-      const phraseWords = syntaxOrder.map(i => solution[i]);
-      const phraseGlyphs = syntaxOrder.map(i => glyphs[i]);
-      
-      // Clue 1: Positional clue about the inscription
-      const firstGlyph = phraseGlyphs[0];
-      const firstMeaning = phraseWords[0];
-      const firstCategory = getCategory(firstMeaning);
-      
-      if (firstCategory === "ROYALTY") {
-        logicalClues.push({
-          id: 1,
-          title: "🏛️ Temple Relief Carving",
-          body: `A relief shows a crowned figure beside the glyph <span class="clue-highlight">${firstGlyph}</span>. Royal titulary always appears at the beginning of ceremonial inscriptions.`,
-          deduction: `The first glyph ${firstGlyph} belongs to the ROYALTY category. It can only be KING.`,
-          reveals: { type: "category", glyph: firstGlyph, category: "ROYALTY" }
-        });
-      } else if (firstCategory === "DEATH") {
-        logicalClues.push({
-          id: 1,
-          title: "🏛️ Temple Relief Carving",
-          body: `A relief shows a funerary scene opening with <span class="clue-highlight">${firstGlyph}</span>. Death-related words often begin burial inscriptions.`,
-          deduction: `The first glyph ${firstGlyph} relates to DEATH. It's either DIED or REST.`,
-          reveals: { type: "category", glyph: firstGlyph, category: "DEATH" }
-        });
-      } else if (firstCategory === "FAMILY") {
-        logicalClues.push({
-          id: 1,
-          title: "🏛️ Temple Relief Carving",
-          body: `A genealogy carving places <span class="clue-highlight">${firstGlyph}</span> first when listing lineages. Family roles open ancestral records.`,
-          deduction: `The first glyph ${firstGlyph} is a FAMILY role. It must be SON.`,
-          reveals: { type: "category", glyph: firstGlyph, category: "FAMILY" }
-        });
-      } else {
-        logicalClues.push({
-          id: 1,
-          title: "🏛️ Temple Relief Carving",
-          body: `The inscription opens with <span class="clue-highlight">${firstGlyph}</span>. Opening glyphs in this script are always subjects (people or deities).`,
-          deduction: `The first glyph ${firstGlyph} is a subject — a person or entity.`,
-          reveals: { type: "category", glyph: firstGlyph, category: ["ROYALTY", "FAMILY", "RELIGION"].includes(firstCategory) ? firstCategory : null }
-        });
-      }
-      
-      // Clue 2: Positional clue about glyph relationships
-      if (phraseGlyphs.length >= 2) {
-        const secondGlyph = phraseGlyphs[1];
-        const secondMeaning = phraseWords[1];
-        const secondCategory = getCategory(secondMeaning);
+    function getRecommendedMeaning(glyphIndex) {
+      // Check each clue's conclusion for explicit assignments
+      for (let clue of currentPuzzle.clues) {
+        const conclusion = clue.conclusion.toLowerCase();
+        const glyph = currentPuzzle.glyphs[glyphIndex];
         
-        if (firstCategory === "ROYALTY" && secondCategory === "FAMILY") {
-          logicalClues.push({
-            id: 2,
-            title: "📜 Dynasty Scroll Fragment",
-            body: `A scroll shows <span class="clue-highlight">${phraseGlyphs[0]} ${phraseGlyphs[1]}</span> together. When a royal glyph precedes another person-glyph, the second is always a family relationship.`,
-            deduction: `Since ${phraseGlyphs[0]} is royal, ${phraseGlyphs[1]} must be a FAMILY term (SON).`,
-            reveals: { type: "category", glyph: secondGlyph, category: "FAMILY" }
-          });
-        } else if (firstCategory === "DEATH" && secondCategory === "ROYALTY") {
-          logicalClues.push({
-            id: 2,
-            title: "📜 Dynasty Scroll Fragment",
-            body: `A scroll shows <span class="clue-highlight">${phraseGlyphs[0]} ${phraseGlyphs[1]}</span> in a memorial context. When death-glyphs precede a person, it means that person died.`,
-            deduction: `${phraseGlyphs[1]} is a person connected to the death event — likely KING.`,
-            reveals: { type: "category", glyph: secondGlyph, category: "ROYALTY" }
-          });
-        } else {
-          logicalClues.push({
-            id: 2,
-            title: "📜 Dynasty Scroll Fragment",
-            body: `The sequence <span class="clue-highlight">${phraseGlyphs[0]} ${phraseGlyphs[1]}</span> appears in multiple texts. In this language family, the second position after a subject is often the object or a modifier.`,
-            deduction: `The second glyph ${phraseGlyphs[1]} describes or receives the action of the first.`,
-            reveals: { type: "relationship", glyph1: phraseGlyphs[0], glyph2: phraseGlyphs[1], relation: "object_or_modifier" }
-          });
-        }
-      }
-      
-      // Clue 3: Elimination via context
-      const allGlyphs = [...glyphs];
-      const phraseSet = new Set(phraseGlyphs);
-      const nonPhraseGlyphs = allGlyphs.filter(g => !phraseSet.has(g));
-      
-      if (nonPhraseGlyphs.length > 0) {
-        const targetGlyph = nonPhraseGlyphs[0];
-        const targetMeaning = solution[glyphs.indexOf(targetGlyph)];
-        const targetCategory = getCategory(targetMeaning);
+        // Look for patterns like "𓁛 = KING" or "𓁛 means KING"
+        const patterns = [
+          new RegExp(`${glyph}\\s*[=]\\s*(\\w+)`, 'i'),
+          new RegExp(`${glyph}\\s+means\\s+(\\w+)`, 'i'),
+          new RegExp(`${glyph}\\s+=\\s+(\\w+)`, 'i'),
+          new RegExp(`therefore.*${glyph}\\s*=\\s*(\\w+)`, 'i'),
+          new RegExp(`so.*${glyph}\\s*=\\s*(\\w+)`, 'i'),
+        ];
         
-        // Find a meaning to eliminate
-        const eliminateCandidate = meanings.find(m => {
-          const cat = getCategory(m);
-          return cat !== targetCategory && !eliminated[glyphs.indexOf(targetGlyph)]?.has(m);
-        });
-        
-        if (eliminateCandidate) {
-          logicalClues.push({
-            id: 3,
-            title: "⚱️ Pottery Shard Analysis",
-            body: `A shard bears <span class="clue-highlight">${targetGlyph}</span> with a clear non-${eliminateCandidate} context. The pottery style confirms it's not related to ${getCategory(eliminateCandidate)?.toLowerCase() || 'that'} concept.`,
-            deduction: `${targetGlyph} cannot mean ${eliminateCandidate}. Eliminate this option.`,
-            reveals: { type: "elimination", glyph: targetGlyph, notMeaning: eliminateCandidate }
-          });
-        }
-      }
-      
-      // Clue 4: Grammar structure
-      const grammarPatterns = [
-        { pattern: "SOV", desc: "Subject-Object-Verb", hint: "The verb (action) comes last in this inscription." },
-        { pattern: "SVO", desc: "Subject-Verb-Object", hint: "The action word sits between the doer and receiver." },
-        { pattern: "VSO", desc: "Verb-Subject-Object", hint: "The inscription starts with the action." },
-      ];
-      const grammar = grammarPatterns[Math.floor(Math.random() * grammarPatterns.length)];
-      
-      logicalClues.push({
-        id: 4,
-        title: "📖 Comparative Grammar Tablet",
-        body: `A grammarian's tablet indicates this dialect uses <strong>${grammar.desc}</strong> word order. ${grammar.hint}`,
-        deduction: `Use ${grammar.desc} structure to determine which glyph is the verb (DIED/REST) vs subject (KING/SON) vs object.`,
-        reveals: { type: "grammar", pattern: grammar.pattern }
-      });
-    }
-
-    function applyLogicalClues() {
-      // Reset eliminated
-      for (let i = 0; i < glyphs.length; i++) {
-        eliminated[i] = new Set();
-      }
-      
-      logicalClues.forEach(clue => {
-        if (clue.reveals.type === "elimination") {
-          const idx = glyphs.indexOf(clue.reveals.glyph);
-          if (idx >= 0) {
-            eliminated[idx].add(clue.reveals.notMeaning);
+        for (let pattern of patterns) {
+          const match = conclusion.match(pattern);
+          if (match && currentPuzzle.words.includes(match[1].toUpperCase())) {
+            return match[1].toUpperCase();
           }
         }
-      });
-      
-      updateDeductionPanel();
-    }
-
-    function updateDeductionPanel() {
-      const panel = document.getElementById('deductionPanel');
-      let html = '';
-      
-      logicalClues.forEach(clue => {
-        const stepClass = 'completed'; // All clues are available from start
-        html += `<div class="deduction-step ${stepClass}">
-          <strong>${clue.title}</strong><br>
-          ${clue.body}<br>
-          <em>➤ ${clue.deduction}</em>
-        </div>`;
-      });
-      
-      // Add logic about what's eliminated
-      const eliminatedCount = Object.values(eliminated).reduce((sum, set) => sum + set.size, 0);
-      if (eliminatedCount > 0) {
-        html += `<div class="deduction-step completed">
-          <strong>🔒 Eliminated Meanings:</strong> ${eliminatedCount} impossible combinations removed.
-        </div>`;
       }
       
-      // Add deduction about remaining possibilities
-      if (allAssigned() && isConsistent()) {
-        html += `<div class="deduction-step completed">
-          <strong>✅ All glyphs assigned consistently!</strong> Now validate your translation.
-        </div>`;
+      // Check for "by elimination" clues
+      for (let clue of currentPuzzle.clues) {
+        const conclusion = clue.conclusion.toLowerCase();
+        const glyph = currentPuzzle.glyphs[glyphIndex];
+        if (conclusion.includes('by elimination') && conclusion.includes(glyph)) {
+          const patterns = [
+            new RegExp(`${glyph}\\s*=\\s*(\\w+)`, 'i'),
+            new RegExp(`${glyph}\\s+means\\s+(\\w+)`, 'i'),
+          ];
+          for (let pattern of patterns) {
+            const match = conclusion.match(pattern);
+            if (match && currentPuzzle.words.includes(match[1].toUpperCase())) {
+              return match[1].toUpperCase();
+            }
+          }
+        }
       }
       
-      panel.innerHTML = html || '<div class="deduction-step pending">🔷 No deductions yet.</div>';
+      return null;
     }
 
-    // ============ PUZZLE GENERATION ============
-    
+    // ============ PUZZLE SETUP ============
+
     function generatePuzzle() {
-      const count = 4;
-      glyphs = shuffle(SYMBOLS).slice(0, count);
-      meanings = shuffle(WORDS).slice(0, count);
+      // Pick a random template
+      currentPuzzle = PUZZLE_TEMPLATES[Math.floor(Math.random() * PUZZLE_TEMPLATES.length)];
       
-      const indices = [0,1,2,3];
-      const shuffled = shuffle(indices);
-      solution = {};
-      for (let i = 0; i < count; i++) {
-        solution[i] = meanings[shuffled[i]];
-      }
+      // Create syntax order (the glyph sequence in the sentence)
+      syntaxOrder = currentPuzzle.glyphs.map((g, i) => i);
       
-      // Create a meaningful phrase using syntax
-      syntaxOrder = shuffle(indices).slice(0, Math.min(4, count));
-      correctPhrase = syntaxOrder.map(i => solution[i]).join(' ');
-      
+      // Initialize assignments
       assignments = {};
       eliminated = {};
-      for (let i = 0; i < count; i++) {
+      for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
         assignments[i] = null;
         eliminated[i] = new Set();
       }
-      
-      // Generate logical clues
-      generateLogicalClues();
-      applyLogicalClues();
       
       document.getElementById('messageBox').innerHTML = '';
       document.getElementById('translationInput').value = '';
@@ -737,77 +739,73 @@
     }
 
     // ============ RENDERING ============
-    
+
     function renderAll() {
       renderInscription();
       renderClues();
       renderMatrix();
-      updateDeductionPanel();
     }
 
     function renderInscription() {
-      const display = document.getElementById('inscriptionDisplay');
-      const meaning = document.getElementById('inscriptionMeaning');
+      document.getElementById('glyphSequence').innerHTML = currentPuzzle.glyphs.join(' ');
       
-      display.innerHTML = syntaxOrder.map(i => glyphs[i]).join(' ');
-      
-      const translation = syntaxOrder.map(i => assignments[i] || '?').join(' ');
-      meaning.textContent = `Translation: ${translation}`;
+      const translation = currentPuzzle.glyphs.map((g, i) => assignments[i] || '?').join(' ');
+      document.getElementById('currentTranslation').textContent = `Your translation: ${translation}`;
     }
 
     function renderClues() {
-      const container = document.getElementById('cluesGrid');
+      const container = document.getElementById('cluesContainer');
       
-      container.innerHTML = logicalClues.map(clue => `
-        <div class="clue-card connected">
-          <div class="clue-title">${clue.title}</div>
-          <div class="clue-body">${clue.body}</div>
+      container.innerHTML = currentPuzzle.clues.map((clue, idx) => `
+        <div class="clue-card">
+          <div class="clue-number">${idx + 1}</div>
+          <div class="clue-content">
+            <div class="clue-title">${clue.title}</div>
+            <div class="clue-text">${clue.text}</div>
+            <div class="clue-conclusion">💡 ${clue.conclusion}</div>
+          </div>
         </div>
       `).join('');
     }
 
     function renderMatrix() {
       const container = document.getElementById('logicGrid');
-      const statusBar = document.getElementById('statusBar');
+      const statusText = document.getElementById('statusText');
       
-      container.innerHTML = glyphs.map((glyph, idx) => {
+      container.innerHTML = currentPuzzle.glyphs.map((glyph, idx) => {
         const assigned = assignments[idx] || '';
-        const available = meanings.filter(m => {
-          if (eliminated[idx]?.has(m)) return false;
+        const recommended = getRecommendedMeaning(idx);
+        const available = currentPuzzle.words.filter(w => {
+          if (eliminated[idx]?.has(w)) return false;
           const usedByOthers = Object.entries(assignments)
-            .filter(([i, v]) => parseInt(i) !== idx && v === m).length > 0;
+            .filter(([i, v]) => parseInt(i) !== idx && v === w).length > 0;
           return !usedByOthers;
         });
         
-        const isInPhrase = syntaxOrder.includes(idx);
-        const deducted = eliminated[idx]?.size > 0;
-        
         return `
           <div class="glyph-row">
-            <span class="glyph-small ${deducted ? 'deduced' : ''}">${glyph}</span>
-            <span style="font-size:0.8rem; color:#6b5535; min-width:60px;">
-              ${assigned ? '= ' + assigned : '= ?'}
+            <span class="glyph-icon ${assigned ? 'solved' : ''}">${glyph}</span>
+            <span style="font-size:0.9rem; color:#5a3f22; min-width:50px; font-weight:bold;">
+              ${assigned ? assigned : '?'}
             </span>
-            ${isInPhrase ? '<span style="font-size:0.7rem; color:#b8943a;">(in phrase)</span>' : ''}
             <div class="meaning-btns">
-              ${meanings.map(mean => {
-                const isSelected = assignments[idx] === mean;
-                const isElim = eliminated[idx]?.has(mean);
-                const unavailable = !available.includes(mean) && !isSelected;
-                const conflicted = isSelected && !isConsistent();
-                const isDeducted = deducted && available.length <= 2 && available.includes(mean);
+              ${currentPuzzle.words.map(word => {
+                const isSelected = assignments[idx] === word;
+                const isLocked = eliminated[idx]?.has(word) || (!available.includes(word) && !isSelected);
+                const isConflicted = isSelected && !isConsistent();
+                const isRecommended = !isSelected && !isLocked && recommended === word;
                 
-                let cls = 'meaning-option';
+                let cls = 'meaning-btn';
                 if (isSelected) cls += ' selected';
-                if (isElim || unavailable) cls += ' eliminated';
-                if (conflicted) cls += ' conflict';
-                if (isDeducted && !isSelected && !isElim) cls += ' deduced';
+                if (isLocked) cls += ' locked';
+                if (isConflicted) cls += ' conflict';
+                if (isRecommended) cls += ' recommended';
                 
                 return `<button class="${cls}" 
-                  data-glyph="${idx}" data-meaning="${mean}"
-                  ${isElim || unavailable ? 'disabled' : ''}
-                  title="${isElim ? 'Eliminated by logical deduction' : unavailable ? 'Already assigned elsewhere' : 'Available'}">
-                  ${mean}
+                  data-glyph="${idx}" data-word="${word}"
+                  ${isLocked ? 'disabled' : ''}
+                  title="${isLocked ? 'Not available' : isRecommended ? 'Recommended by clues!' : 'Click to assign'}">
+                  ${word}
                 </button>`;
               }).join('')}
             </div>
@@ -819,23 +817,23 @@
       const consistent = isConsistent();
       
       if (!consistent) {
-        statusBar.innerHTML = '⚠️ <span style="color:#aa3a2e;">LOGICAL CONFLICT:</span> Two glyphs share a meaning, or a glyph has no valid options.';
-      } else if (assigned === glyphs.length) {
-        statusBar.innerHTML = '✅ <span style="color:#2f5a1e;">All glyphs assigned & logically consistent!</span> Type the full translation below.';
+        statusText.innerHTML = '⚠️ <span style="color:#aa3a2e;">Conflict!</span> Two glyphs have the same meaning. Each word can only be used once.';
+      } else if (assigned === currentPuzzle.glyphs.length) {
+        statusText.innerHTML = '✅ <span style="color:#2f5a1e;">All assigned!</span> Now type the complete sentence in the box below.';
       } else {
-        statusBar.innerHTML = `🔷 ${assigned}/${glyphs.length} assigned · ${Object.values(eliminated).reduce((s, set) => s + set.size, 0)} options eliminated by logic`;
+        statusText.innerHTML = `📝 ${assigned}/${currentPuzzle.glyphs.length} glyphs assigned. <span style="color:#2a6b1f;">Green buttons</span> = recommended by clues.`;
       }
       
       // Attach handlers
-      document.querySelectorAll('.meaning-option:not(.eliminated)').forEach(btn => {
+      document.querySelectorAll('.meaning-btn:not(.locked)').forEach(btn => {
         btn.addEventListener('click', () => {
           const idx = parseInt(btn.dataset.glyph);
-          const meaning = btn.dataset.meaning;
+          const word = btn.dataset.word;
           
-          if (assignments[idx] === meaning) {
+          if (assignments[idx] === word) {
             assignments[idx] = null;
           } else {
-            assignments[idx] = meaning;
+            assignments[idx] = word;
           }
           
           renderAll();
@@ -844,37 +842,37 @@
     }
 
     // ============ VALIDATION ============
-    
+
     function validate() {
       const input = document.getElementById('translationInput').value.trim().toUpperCase();
       const msgBox = document.getElementById('messageBox');
       
       if (!allAssigned()) {
-        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to EVERY glyph first. Use the logical deductions above!</div>';
+        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to every glyph first. Use the green recommended buttons!</div>';
         return;
       }
       
       if (!isConsistent()) {
-        msgBox.innerHTML = '<div class="message error">❌ Your assignments contain a logical contradiction. Check for duplicate meanings.</div>';
+        msgBox.innerHTML = '<div class="message error">❌ Each word can only be used once. Fix duplicate assignments.</div>';
         return;
       }
       
-      const yourPhrase = syntaxOrder.map(i => assignments[i]).join(' ');
+      const yourSentence = currentPuzzle.glyphs.map((g, i) => assignments[i]).join(' ');
       
-      if (input !== yourPhrase) {
-        msgBox.innerHTML = `<div class="message error">🔁 That doesn't match your assignments. Your matrix gives: <strong>"${yourPhrase}"</strong></div>`;
+      if (input !== yourSentence) {
+        msgBox.innerHTML = `<div class="message error">Your sentence should be: <strong>"${yourSentence}"</strong> (based on your assignments above)</div>`;
         return;
       }
       
-      if (input === correctPhrase) {
-        msgBox.innerHTML = '<div class="message success">🏆 <strong>CORRECT!</strong> Your logical deduction was flawless! The ancient inscription is deciphered.</div>';
+      if (input === currentPuzzle.sentence) {
+        msgBox.innerHTML = '<div class="message success">🏆 <strong>CORRECT!</strong> You\'ve deciphered the ancient inscription! Your logical deduction was perfect.</div>';
       } else {
-        msgBox.innerHTML = '<div class="message info">📖 Logically consistent, but not the true meaning. Review the category clues — which glyphs fit ROYALTY vs FAMILY vs DEATH?</div>';
+        msgBox.innerHTML = '<div class="message info">📖 Your logic is consistent, but this isn\'t the correct translation. Re-read the clues carefully — especially the green conclusions!</div>';
       }
     }
 
     function reset() {
-      for (let i = 0; i < glyphs.length; i++) {
+      for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
         assignments[i] = null;
       }
       document.getElementById('messageBox').innerHTML = '';
@@ -883,7 +881,7 @@
     }
 
     // ============ EVENT LISTENERS ============
-    
+
     document.getElementById('validateBtn').addEventListener('click', validate);
     document.getElementById('resetBtn').addEventListener('click', reset);
     document.getElementById('newPuzzleBtn').addEventListener('click', generatePuzzle);
