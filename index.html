@@ -56,7 +56,10 @@
       cursor: pointer;
       z-index: 999;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      font-weight: bold;
     }
+
+    .help-btn:hover { background: #e0b840; }
 
     header {
       text-align: center;
@@ -81,7 +84,6 @@
       font-weight: bold;
     }
 
-    /* The inscription to decode */
     .inscription-box {
       background: var(--stone);
       background-image: linear-gradient(0deg, #ad8f64 0%, #e1c7a0 100%);
@@ -113,7 +115,6 @@
       letter-spacing: 0.1rem;
     }
 
-    /* Clues - now in a clear numbered order */
     .clues-container {
       display: flex;
       flex-direction: column;
@@ -135,7 +136,7 @@
     .clue-number {
       background: var(--accent);
       color: white;
-      width: 28px;
+      min-width: 28px;
       height: 28px;
       border-radius: 50%;
       display: flex;
@@ -174,7 +175,6 @@
       border-left: 3px solid #4f6d3a;
     }
 
-    /* Matrix */
     .matrix-box {
       background: #efe2cc;
       border: 3px solid #8d7352;
@@ -204,6 +204,7 @@
       border: 2px solid #664f30;
       min-width: 55px;
       text-align: center;
+      font-family: 'Noto Sans Symbols', 'Segoe UI Historic', sans-serif;
     }
 
     .glyph-icon.solved {
@@ -228,6 +229,7 @@
       cursor: pointer;
       font-size: 0.8rem;
       transition: 0.15s;
+      font-family: inherit;
     }
 
     .meaning-btn:hover:not(.locked) { 
@@ -274,7 +276,6 @@
       font-style: italic;
     }
 
-    /* Notebook */
     .notebook {
       background: #f8f0de;
       border: 3px solid #896e49;
@@ -300,6 +301,7 @@
       flex: 1;
       min-width: 200px;
       font-weight: 600;
+      font-family: inherit;
     }
 
     .btn {
@@ -339,12 +341,11 @@
       margin-top: 0.3rem;
     }
 
-    /* Tutorial */
     .tutorial-overlay {
       background: rgba(0,0,0,0.85);
       position: fixed;
       top: 0; left: 0; right: 0; bottom: 0;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
       z-index: 1000;
@@ -388,15 +389,15 @@
       padding: 0.1rem 0.3rem;
       border-radius: 3px;
       font-weight: bold;
-      font-family: 'Noto Sans Symbols', 'Segoe UI Historic', sans-serif;
     }
 
     @media (max-width: 600px) {
       .game-container { padding: 0.8rem; border-radius: 25px; }
       h1 { font-size: 1.4rem; }
-      .glyph-sequence { font-size: 2.2rem; letter-spacing: 0.4rem; }
-      .glyph-icon { font-size: 1.6rem; }
+      .glyph-sequence { font-size: 2.2rem; letter-spacing: 0.4rem; padding: 0.4rem 1rem; }
+      .glyph-icon { font-size: 1.6rem; min-width: 45px; }
       .clue-card { flex-direction: column; }
+      .meaning-btn { padding: 0.3rem 0.5rem; font-size: 0.75rem; }
     }
   </style>
 </head>
@@ -409,29 +410,25 @@
       <h1>ROSETTA DEDUCTION</h1>
     </header>
 
-    <!-- THE INSCRIPTION -->
     <div class="section-label">📜 Inscription to Decode</div>
     <div class="inscription-box">
       <div class="glyph-sequence" id="glyphSequence"></div>
       <div class="current-translation" id="currentTranslation">Your translation: ? ? ? ?</div>
     </div>
 
-    <!-- LOGICAL CLUES -->
     <div class="section-label">🔍 Clues (Read in Order - Each Builds on the Last)</div>
     <div class="clues-container" id="cluesContainer"></div>
 
-    <!-- MATRIX -->
     <div class="section-label">🧩 Assign Meanings to Glyphs</div>
     <div class="matrix-box">
       <div id="logicGrid"></div>
       <div class="status-text" id="statusText">Click a meaning button to assign it to a glyph.</div>
     </div>
 
-    <!-- VALIDATION -->
     <div class="section-label">📓 Check Your Translation</div>
     <div class="notebook">
       <div class="input-row">
-        <input type="text" id="translationInput" placeholder="Type your translation (e.g. THE KING DIED)" autocomplete="off">
+        <input type="text" id="translationInput" placeholder="Type your translation (e.g. THE KING DIED REST)" autocomplete="off">
         <button class="btn" id="validateBtn">🔎 Check</button>
       </div>
       <div id="messageBox"></div>
@@ -442,7 +439,6 @@
     </div>
   </div>
 
-  <!-- TUTORIAL -->
   <div class="tutorial-overlay" id="tutorialOverlay">
     <div class="tutorial-card">
       <h2>🏺 How to Decipher the Script</h2>
@@ -450,203 +446,161 @@
         <strong>1. Look at the glyph sequence</strong> - These 4 symbols form a meaningful sentence.
       </div>
       <div class="tutorial-step">
-        <strong>2. Read the clues IN ORDER</strong> - Clue 1 tells you something. Clue 2 builds on that. Clue 3 narrows it further. Each clue has a <span style="color:#2a5a15;">green conclusion</span>.
+        <strong>2. Read the clues IN ORDER</strong> - Clue 1 tells you something. Clue 2 builds on that. Clue 3 narrows it further. Each clue has a <span style="color:#2a5a15;">green conclusion</span> that tells you what a glyph means.
       </div>
       <div class="example-box">
         <strong>Example deduction chain:</strong><br>
-        <strong>Clue 1:</strong> "Symbol A appears on royal objects" → Symbol A = KING<br>
-        <strong>Clue 2:</strong> "The symbol after KING means a relationship" → Second symbol = SON<br>
-        <strong>Clue 3:</strong> "The last symbol appears in tombs" → Last symbol = DIED or REST<br>
-        <strong>Clue 4:</strong> "The sentence means: The king's son died" → Third symbol = DIED, Fourth = REST
+        <strong>Clue 1:</strong> "Symbol A appears on royal objects" → <span style="color:#2a5a15;">Symbol A = KING</span><br>
+        <strong>Clue 2:</strong> "The symbol after KING means a death event" → <span style="color:#2a5a15;">Second symbol = DIED</span><br>
+        <strong>Clue 3:</strong> "The next symbol appears in tombs" → <span style="color:#2a5a15;">Third symbol = REST</span><br>
+        <strong>Clue 4:</strong> "The remaining symbol starts sentences" → <span style="color:#2a5a15;">Fourth symbol = THE</span>
       </div>
       <div class="tutorial-step">
-        <strong>3. Assign meanings</strong> - Click buttons in the matrix. Green highlighted buttons are recommended by the clues.
+        <strong>3. Click the green recommended buttons</strong> in the matrix. The game highlights which meaning each clue suggests.
       </div>
       <div class="tutorial-step">
-        <strong>4. Type the full sentence</strong> - When all 4 glyphs have meanings, type the complete English sentence.
+        <strong>4. Type the full sentence</strong> - When all 4 glyphs have meanings, type the complete English sentence in the box.
       </div>
       <button class="btn" id="startGameBtn">Start Deciphering!</button>
     </div>
   </div>
 
   <script>
-    // ============ LOGICAL DEDUCTION GAME ============
+    // ============ GAME ENGINE ============
     
-    const SYMBOLS = ["𓀀", "𓁛", "𓃀", "⚰️", "𓋹", "𓆣"];
-    
-    // Predefined logical puzzle templates
-    // Each template has: a meaningful English sentence, word-to-glyph mapping, and deduction clues
-    const PUZZLE_TEMPLATES = [
+    // Puzzle templates with explicit glyph-to-meaning mapping
+    const PUZZLES = [
       {
         sentence: "THE KING DIED REST",
-        words: ["THE", "KING", "DIED", "REST"],
+        // Map each position in the glyph array to its meaning
+        solution: ["THE", "KING", "DIED", "REST"],
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
             title: "Royal Cartouche Analysis",
-            text: 'The glyph <span class="glyph-highlight">𓁛</span> always appears inside royal cartouches (oval rings reserved for pharaohs). No other glyph appears this way.',
-            conclusion: "Therefore, 𓁛 = KING (the only royal word in this language)"
+            text: 'The second glyph appears inside royal cartouches (oval rings reserved for pharaohs). No other glyph appears this way in any inscription.',
+            conclusion: 'Therefore, the second glyph = KING. Only royalty gets a cartouche.',
+            reveals: 1  // index of glyph this clue is about
           },
           {
             title: "Tomb Painting Observation",
-            text: 'In a tomb painting, the sequence <span class="glyph-highlight">𓁛 𓃀</span> appears above a scene showing a pharaoh on his deathbed. The glyph after KING describes what happened to him.',
-            conclusion: "Since the pharaoh is dying in the scene, the glyph after KING (𓃀) must mean DIED"
+            text: 'A tomb painting shows the sequence of glyphs 2 and 3 above a scene of a pharaoh on his deathbed. The glyph after KING describes what happened to him.',
+            conclusion: 'Since the painting shows death, the third glyph (after KING) = DIED.',
+            reveals: 2
           },
           {
             title: "Offering Table Inscription",
-            text: 'A stone offering table bears the phrase <span class="glyph-highlight">𓃀 ⚰️</span> next to an image of food offerings for the afterlife. The glyph ⚰️ represents what comes after death.',
-            conclusion: "⚰️ appears after DIED and relates to the afterlife, so ⚰️ = REST (eternal rest)"
+            text: 'A stone offering table bears glyphs 3 and 4 next to food offerings for the afterlife. The fourth glyph represents what comes after death — eternal peace.',
+            conclusion: 'The fourth glyph relates to the afterlife state, so it = REST.',
+            reveals: 3
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: 'A grammar text explains: sentences begin with <span class="glyph-highlight">𓀀</span> which is a determiner (like "the" or "a"). It marks the start of a statement.',
-            conclusion: "By elimination, the remaining glyph 𓀀 = THE. The full sentence reads: THE KING DIED REST (meaning: The king died and rests eternally)"
+            text: 'A grammar text explains: sentences always begin with the first glyph. It functions as a determiner, like "the" in English. All other glyphs are now identified.',
+            conclusion: 'By elimination, the remaining first glyph = THE. The full sentence reads: THE KING DIED REST (The king died and rests eternally).',
+            reveals: 0
           }
         ]
       },
       {
         sentence: "THE SON REST KING",
-        words: ["THE", "SON", "REST", "KING"],
+        solution: ["THE", "SON", "REST", "KING"],
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
             title: "Grammar Papyrus Fragment",
-            text: 'Every sentence begins with <span class="glyph-highlight">𓀀</span>. Grammar texts identify this as the definite article, like "the" in English.',
-            conclusion: "Therefore, 𓀀 = THE (it always starts sentences)"
+            text: 'Every sentence begins with the first glyph. Grammar texts identify this as the definite article — like "the" in English. It marks the start of every statement.',
+            conclusion: 'Therefore, the first glyph = THE.',
+            reveals: 0
           },
           {
             title: "Family Register Carving",
-            text: 'A family tree carving shows <span class="glyph-highlight">𓁛</span> next to smaller figures identified as children. This glyph represents offspring.',
-            conclusion: "𓁛 appears in family contexts with children, so 𓁛 = SON"
+            text: 'A family tree carving shows the second glyph next to smaller figures identified as children and heirs. This glyph represents offspring in all genealogies.',
+            conclusion: 'The second glyph appears with children in family records, so it = SON.',
+            reveals: 1
           },
           {
             title: "Royal Cartouche Analysis",
-            text: 'The glyph <span class="glyph-highlight">⚰️</span> appears only in royal cartouches reserved for pharaohs. No common person's name contains this glyph.',
-            conclusion: "⚰️ is exclusive to royalty, so ⚰️ = KING"
+            text: 'The fourth glyph appears exclusively in pharaoh\'s cartouches and royal inscriptions. No commoner\'s name ever contains this symbol.',
+            conclusion: 'The fourth glyph is exclusive to royalty, so it = KING.',
+            reveals: 3
           },
           {
             title: "Funerary Chamber Mural",
-            text: 'A mural shows <span class="glyph-highlight">𓃀</span> painted on a peaceful burial scene with the deceased lying in repose. It represents the state of peaceful death.',
-            conclusion: "By elimination, the remaining glyph 𓃀 = REST. The full sentence: THE SON REST KING (meaning: The son rests with the king)"
+            text: 'The remaining third glyph is painted in peaceful burial scenes showing the deceased in eternal repose. It represents the state of peaceful afterlife.',
+            conclusion: 'By elimination, the third glyph = REST. Full sentence: THE SON REST KING (The son rests with the king in eternity).',
+            reveals: 2
           }
         ]
       },
       {
         sentence: "KING DIED THE SON",
-        words: ["KING", "DIED", "THE", "SON"],
+        solution: ["KING", "DIED", "THE", "SON"],
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
             title: "Royal Cartouche Analysis",
-            text: '<span class="glyph-highlight">𓀀</span> appears exclusively in pharaoh\'s cartouches. Royal names always contain this glyph.',
-            conclusion: "Therefore, 𓀀 = KING (the royal identifier)"
+            text: 'The first glyph appears exclusively in pharaoh\'s cartouches. Royal names always begin with this symbol in every inscription found.',
+            conclusion: 'Therefore, the first glyph = KING. It marks royalty.',
+            reveals: 0
           },
           {
             title: "Death Register Fragment",
-            text: 'A list of deceased pharaohs shows <span class="glyph-highlight">𓀀 𓁛</span> before each entry. The second glyph marks the death event.',
-            conclusion: "After KING, the glyph 𓁛 records the death, so 𓁛 = DIED"
+            text: 'A list of deceased pharaohs shows the first two glyphs together. The second glyph follows KING and marks the death event in the royal chronicle.',
+            conclusion: 'After KING, the second glyph records death, so it = DIED.',
+            reveals: 1
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: '<span class="glyph-highlight">𓃀</span> appears between major words as a connector. It functions as a determiner like "the".',
-            conclusion: "𓃀 connects words and acts as an article, so 𓃀 = THE"
+            text: 'The third glyph appears between major words as a connector. It functions as a determiner/article like "the" — connecting subject to object.',
+            conclusion: 'The third glyph connects words, functioning as an article, so it = THE.',
+            reveals: 2
           },
           {
             title: "Family Register Carving",
-            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in family trees next to depictions of royal children and heirs.',
-            conclusion: "By elimination, ⚰️ = SON. Full sentence: KING DIED THE SON (meaning: The king died, the son [inherits])"
+            text: 'The remaining fourth glyph appears in succession lists next to depictions of royal heirs and princes throughout the temple.',
+            conclusion: 'By elimination, the fourth glyph = SON. Full sentence: KING DIED THE SON (The king died; the son succeeds).',
+            reveals: 3
           }
         ]
       },
       {
         sentence: "SON THE KING REST",
-        words: ["SON", "THE", "KING", "REST"],
+        solution: ["SON", "THE", "KING", "REST"],
         glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
         clues: [
           {
             title: "Family Register Carving",
-            text: '<span class="glyph-highlight">𓀀</span> appears first in genealogies, marking the child or heir in family lineages.',
-            conclusion: "In family contexts, 𓀀 = SON (the heir or child)"
+            text: 'The first glyph opens genealogies and inheritance records. It marks the child or heir in every family lineage inscription.',
+            conclusion: 'In family and inheritance contexts, the first glyph = SON.',
+            reveals: 0
           },
           {
             title: "Grammar Papyrus Fragment",
-            text: '<span class="glyph-highlight">𓁛</span> is a function word that appears between subject and object. It works as a determiner/article.',
-            conclusion: "As a connector word, 𓁛 = THE"
+            text: 'The second glyph is a function word appearing between subject and object in all texts. It works as a determiner/article.',
+            conclusion: 'As a connector between subject and object, the second glyph = THE.',
+            reveals: 1
           },
           {
             title: "Royal Cartouche Analysis",
-            text: '<span class="glyph-highlight">𓃀</span> appears exclusively in pharaoh\'s cartouches and royal inscriptions.',
-            conclusion: "The royal glyph 𓃀 = KING"
+            text: 'The third glyph appears exclusively in pharaoh\'s cartouches and royal palace inscriptions.',
+            conclusion: 'The royal glyph is the third one, so it = KING.',
+            reveals: 2
           },
           {
             title: "Funerary Chamber Mural",
-            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in peaceful burial scenes showing eternal repose.',
-            conclusion: "By elimination, ⚰️ = REST. Full sentence: SON THE KING REST (meaning: The son rests with the king)"
-          }
-        ]
-      },
-      {
-        sentence: "DIED KING THE SON",
-        words: ["DIED", "KING", "THE", "SON"],
-        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
-        clues: [
-          {
-            title: "Death Register Fragment",
-            text: '<span class="glyph-highlight">𓀀</span> opens funeral inscriptions. It marks the death event itself.',
-            conclusion: "Opening funeral texts, 𓀀 = DIED"
-          },
-          {
-            title: "Royal Cartouche Analysis",
-            text: '<span class="glyph-highlight">𓁛</span> follows death-glyphs in royal obituaries. It identifies the deceased pharaoh.',
-            conclusion: "After DIED, the royal glyph 𓁛 = KING"
-          },
-          {
-            title: "Grammar Papyrus Fragment",
-            text: '<span class="glyph-highlight">𓃀</span> connects nouns in sequence. It functions as an article/determiner.',
-            conclusion: "As a connector between nouns, 𓃀 = THE"
-          },
-          {
-            title: "Family Register Carving",
-            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> appears in inheritance records marking the heir.',
-            conclusion: "By elimination, ⚰️ = SON. Full sentence: DIED KING THE SON (meaning: The king died, the son [succeeds])"
-          }
-        ]
-      },
-      {
-        sentence: "REST THE KING SON",
-        words: ["REST", "THE", "KING", "SON"],
-        glyphs: ["𓀀", "𓁛", "𓃀", "⚰️"],
-        clues: [
-          {
-            title: "Funerary Chamber Mural",
-            text: '<span class="glyph-highlight">𓀀</span> opens prayers for the deceased. It expresses the wish for peaceful rest.',
-            conclusion: "Opening funerary prayers, 𓀀 = REST"
-          },
-          {
-            title: "Grammar Papyrus Fragment",
-            text: '<span class="glyph-highlight">𓁛</span> is a function word connecting the prayer to its subject. It means "the".',
-            conclusion: "As an article/connector, 𓁛 = THE"
-          },
-          {
-            title: "Royal Cartouche Analysis",
-            text: '<span class="glyph-highlight">𓃀</span> identifies the pharaoh in all royal inscriptions.',
-            conclusion: "The royal glyph 𓃀 = KING"
-          },
-          {
-            title: "Family Register Carving",
-            text: 'The remaining glyph <span class="glyph-highlight">⚰️</span> marks royal children in succession lists.',
-            conclusion: "By elimination, ⚰️ = SON. Full sentence: REST THE KING SON (meaning: May the king's son rest)"
+            text: 'The remaining fourth glyph appears in peaceful burial scenes and prayers for the deceased, representing eternal repose.',
+            conclusion: 'By elimination, the fourth glyph = REST. Full sentence: SON THE KING REST (The son rests with the king).',
+            reveals: 3
           }
         ]
       }
     ];
 
     let currentPuzzle = null;
-    let assignments = {};
-    let eliminated = {};
-    let syntaxOrder = [];
+    let assignments = {};  // glyphIndex -> word
 
-    // ============ GAME LOGIC ============
+    // ============ FUNCTIONS ============
 
     function shuffle(arr) {
       const a = [...arr];
@@ -658,78 +612,38 @@
     }
 
     function isConsistent() {
-      const used = new Set(Object.values(assignments).filter(v => v));
+      const used = new Set();
       for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
-        if (assignments[i]) continue;
-        const available = currentPuzzle.words.filter(w => !used.has(w) && !(eliminated[i]?.has(w)));
-        if (available.length === 0) return false;
+        if (assignments[i]) {
+          if (used.has(assignments[i])) return false;
+          used.add(assignments[i]);
+        }
       }
-      return used.size === Object.values(assignments).filter(v => v).length;
+      return true;
     }
 
     function allAssigned() {
-      return Object.values(assignments).filter(v => v).length === currentPuzzle.glyphs.length;
+      for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
+        if (!assignments[i]) return false;
+      }
+      return true;
     }
 
-    function getRecommendedMeaning(glyphIndex) {
-      // Check each clue's conclusion for explicit assignments
-      for (let clue of currentPuzzle.clues) {
-        const conclusion = clue.conclusion.toLowerCase();
-        const glyph = currentPuzzle.glyphs[glyphIndex];
-        
-        // Look for patterns like "𓁛 = KING" or "𓁛 means KING"
-        const patterns = [
-          new RegExp(`${glyph}\\s*[=]\\s*(\\w+)`, 'i'),
-          new RegExp(`${glyph}\\s+means\\s+(\\w+)`, 'i'),
-          new RegExp(`${glyph}\\s+=\\s+(\\w+)`, 'i'),
-          new RegExp(`therefore.*${glyph}\\s*=\\s*(\\w+)`, 'i'),
-          new RegExp(`so.*${glyph}\\s*=\\s*(\\w+)`, 'i'),
-        ];
-        
-        for (let pattern of patterns) {
-          const match = conclusion.match(pattern);
-          if (match && currentPuzzle.words.includes(match[1].toUpperCase())) {
-            return match[1].toUpperCase();
-          }
-        }
+    // Get the word that a clue reveals (based on the reveals index)
+    function getRevealedWord(clueIndex) {
+      const clue = currentPuzzle.clues[clueIndex];
+      if (clue && clue.reveals !== undefined) {
+        return currentPuzzle.solution[clue.reveals];
       }
-      
-      // Check for "by elimination" clues
-      for (let clue of currentPuzzle.clues) {
-        const conclusion = clue.conclusion.toLowerCase();
-        const glyph = currentPuzzle.glyphs[glyphIndex];
-        if (conclusion.includes('by elimination') && conclusion.includes(glyph)) {
-          const patterns = [
-            new RegExp(`${glyph}\\s*=\\s*(\\w+)`, 'i'),
-            new RegExp(`${glyph}\\s+means\\s+(\\w+)`, 'i'),
-          ];
-          for (let pattern of patterns) {
-            const match = conclusion.match(pattern);
-            if (match && currentPuzzle.words.includes(match[1].toUpperCase())) {
-              return match[1].toUpperCase();
-            }
-          }
-        }
-      }
-      
       return null;
     }
 
-    // ============ PUZZLE SETUP ============
-
     function generatePuzzle() {
-      // Pick a random template
-      currentPuzzle = PUZZLE_TEMPLATES[Math.floor(Math.random() * PUZZLE_TEMPLATES.length)];
+      currentPuzzle = PUZZLES[Math.floor(Math.random() * PUZZLES.length)];
       
-      // Create syntax order (the glyph sequence in the sentence)
-      syntaxOrder = currentPuzzle.glyphs.map((g, i) => i);
-      
-      // Initialize assignments
       assignments = {};
-      eliminated = {};
       for (let i = 0; i < currentPuzzle.glyphs.length; i++) {
         assignments[i] = null;
-        eliminated[i] = new Set();
       }
       
       document.getElementById('messageBox').innerHTML = '';
@@ -737,8 +651,6 @@
       
       renderAll();
     }
-
-    // ============ RENDERING ============
 
     function renderAll() {
       renderInscription();
@@ -750,36 +662,56 @@
       document.getElementById('glyphSequence').innerHTML = currentPuzzle.glyphs.join(' ');
       
       const translation = currentPuzzle.glyphs.map((g, i) => assignments[i] || '?').join(' ');
-      document.getElementById('currentTranslation').textContent = `Your translation: ${translation}`;
+      document.getElementById('currentTranslation').textContent = 'Your translation: ' + translation;
     }
 
     function renderClues() {
       const container = document.getElementById('cluesContainer');
       
-      container.innerHTML = currentPuzzle.clues.map((clue, idx) => `
-        <div class="clue-card">
-          <div class="clue-number">${idx + 1}</div>
-          <div class="clue-content">
-            <div class="clue-title">${clue.title}</div>
-            <div class="clue-text">${clue.text}</div>
-            <div class="clue-conclusion">💡 ${clue.conclusion}</div>
+      container.innerHTML = currentPuzzle.clues.map((clue, idx) => {
+        // Replace "first glyph", "second glyph" etc with actual glyph symbols
+        const ordinals = ['first', 'second', 'third', 'fourth'];
+        let text = clue.text;
+        let conclusion = clue.conclusion;
+        
+        ordinals.forEach((ord, i) => {
+          const glyphSymbol = currentPuzzle.glyphs[i];
+          text = text.replace(new RegExp(ord + ' glyph', 'gi'), 
+            '<span class="glyph-highlight">' + glyphSymbol + '</span>');
+          text = text.replace(new RegExp('glyph ' + (i + 1), 'gi'), 
+            '<span class="glyph-highlight">' + glyphSymbol + '</span>');
+          text = text.replace(new RegExp('glyphs ' + (i + 1), 'gi'), 
+            '<span class="glyph-highlight">' + glyphSymbol + '</span>');
+          conclusion = conclusion.replace(new RegExp(ord + ' glyph', 'gi'), glyphSymbol);
+        });
+        
+        return `
+          <div class="clue-card">
+            <div class="clue-number">${idx + 1}</div>
+            <div class="clue-content">
+              <div class="clue-title">${clue.title}</div>
+              <div class="clue-text">${text}</div>
+              <div class="clue-conclusion">💡 ${conclusion}</div>
+            </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
     }
 
     function renderMatrix() {
       const container = document.getElementById('logicGrid');
       const statusText = document.getElementById('statusText');
+      const usedWords = new Set(Object.values(assignments).filter(v => v));
       
       container.innerHTML = currentPuzzle.glyphs.map((glyph, idx) => {
         const assigned = assignments[idx] || '';
-        const recommended = getRecommendedMeaning(idx);
-        const available = currentPuzzle.words.filter(w => {
-          if (eliminated[idx]?.has(w)) return false;
-          const usedByOthers = Object.entries(assignments)
-            .filter(([i, v]) => parseInt(i) !== idx && v === w).length > 0;
-          return !usedByOthers;
+        
+        // Find which clue reveals this glyph
+        let recommendedWord = null;
+        currentPuzzle.clues.forEach(clue => {
+          if (clue.reveals === idx) {
+            recommendedWord = currentPuzzle.solution[idx];
+          }
         });
         
         return `
@@ -789,22 +721,22 @@
               ${assigned ? assigned : '?'}
             </span>
             <div class="meaning-btns">
-              ${currentPuzzle.words.map(word => {
+              ${currentPuzzle.solution.map(word => {
                 const isSelected = assignments[idx] === word;
-                const isLocked = eliminated[idx]?.has(word) || (!available.includes(word) && !isSelected);
+                const isUsed = usedWords.has(word) && !isSelected;
                 const isConflicted = isSelected && !isConsistent();
-                const isRecommended = !isSelected && !isLocked && recommended === word;
+                const isRecommended = !isSelected && !isUsed && recommendedWord === word;
                 
                 let cls = 'meaning-btn';
                 if (isSelected) cls += ' selected';
-                if (isLocked) cls += ' locked';
+                if (isUsed) cls += ' locked';
                 if (isConflicted) cls += ' conflict';
                 if (isRecommended) cls += ' recommended';
                 
                 return `<button class="${cls}" 
                   data-glyph="${idx}" data-word="${word}"
-                  ${isLocked ? 'disabled' : ''}
-                  title="${isLocked ? 'Not available' : isRecommended ? 'Recommended by clues!' : 'Click to assign'}">
+                  ${isUsed ? 'disabled' : ''}
+                  title="${isUsed ? 'Already used for another glyph' : isRecommended ? '⭐ Recommended by clues!' : 'Click to assign'}">
                   ${word}
                 </button>`;
               }).join('')}
@@ -812,28 +744,27 @@
           </div>`;
       }).join('');
       
-      // Status
-      const assigned = Object.values(assignments).filter(v => v).length;
-      const consistent = isConsistent();
+      // Update status
+      const assignedCount = Object.values(assignments).filter(v => v).length;
       
-      if (!consistent) {
+      if (!isConsistent()) {
         statusText.innerHTML = '⚠️ <span style="color:#aa3a2e;">Conflict!</span> Two glyphs have the same meaning. Each word can only be used once.';
-      } else if (assigned === currentPuzzle.glyphs.length) {
+      } else if (assignedCount === currentPuzzle.glyphs.length) {
         statusText.innerHTML = '✅ <span style="color:#2f5a1e;">All assigned!</span> Now type the complete sentence in the box below.';
       } else {
-        statusText.innerHTML = `📝 ${assigned}/${currentPuzzle.glyphs.length} glyphs assigned. <span style="color:#2a6b1f;">Green buttons</span> = recommended by clues.`;
+        statusText.innerHTML = '📝 ' + assignedCount + '/' + currentPuzzle.glyphs.length + ' glyphs assigned. <span style="color:#2a6b1f;">Green buttons</span> = recommended by clues.';
       }
       
-      // Attach handlers
+      // Attach click handlers
       document.querySelectorAll('.meaning-btn:not(.locked)').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const idx = parseInt(btn.dataset.glyph);
-          const word = btn.dataset.word;
+        btn.addEventListener('click', function() {
+          const glyphIdx = parseInt(this.dataset.glyph);
+          const word = this.dataset.word;
           
-          if (assignments[idx] === word) {
-            assignments[idx] = null;
+          if (assignments[glyphIdx] === word) {
+            assignments[glyphIdx] = null; // Deselect
           } else {
-            assignments[idx] = word;
+            assignments[glyphIdx] = word; // Select
           }
           
           renderAll();
@@ -841,14 +772,12 @@
       });
     }
 
-    // ============ VALIDATION ============
-
     function validate() {
       const input = document.getElementById('translationInput').value.trim().toUpperCase();
       const msgBox = document.getElementById('messageBox');
       
       if (!allAssigned()) {
-        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to every glyph first. Use the green recommended buttons!</div>';
+        msgBox.innerHTML = '<div class="message error">⚠️ Assign a meaning to every glyph first. Click the green recommended buttons!</div>';
         return;
       }
       
@@ -860,14 +789,14 @@
       const yourSentence = currentPuzzle.glyphs.map((g, i) => assignments[i]).join(' ');
       
       if (input !== yourSentence) {
-        msgBox.innerHTML = `<div class="message error">Your sentence should be: <strong>"${yourSentence}"</strong> (based on your assignments above)</div>`;
+        msgBox.innerHTML = '<div class="message error">Your sentence should be: <strong>"' + yourSentence + '"</strong> (based on your assignments above)</div>';
         return;
       }
       
       if (input === currentPuzzle.sentence) {
         msgBox.innerHTML = '<div class="message success">🏆 <strong>CORRECT!</strong> You\'ve deciphered the ancient inscription! Your logical deduction was perfect.</div>';
       } else {
-        msgBox.innerHTML = '<div class="message info">📖 Your logic is consistent, but this isn\'t the correct translation. Re-read the clues carefully — especially the green conclusions!</div>';
+        msgBox.innerHTML = '<div class="message info">📖 Your logic is consistent, but this isn\'t the correct translation. Re-read the clues carefully!</div>';
       }
     }
 
@@ -886,27 +815,29 @@
     document.getElementById('resetBtn').addEventListener('click', reset);
     document.getElementById('newPuzzleBtn').addEventListener('click', generatePuzzle);
     
-    document.getElementById('translationInput').addEventListener('keypress', (e) => {
+    document.getElementById('translationInput').addEventListener('keypress', function(e) {
       if (e.key === 'Enter') validate();
     });
 
     // Tutorial
-    document.getElementById('helpBtn').addEventListener('click', () => {
+    document.getElementById('helpBtn').addEventListener('click', function() {
       document.getElementById('tutorialOverlay').style.display = 'flex';
     });
     
-    document.getElementById('startGameBtn').addEventListener('click', () => {
+    document.getElementById('startGameBtn').addEventListener('click', function() {
       document.getElementById('tutorialOverlay').style.display = 'none';
     });
     
-    document.getElementById('tutorialOverlay').addEventListener('click', (e) => {
+    document.getElementById('tutorialOverlay').addEventListener('click', function(e) {
       if (e.target === e.currentTarget) {
         e.currentTarget.style.display = 'none';
       }
     });
 
-    // ============ START ============
+    // ============ START GAME ============
     generatePuzzle();
+    console.log('🏺 Rosetta Deduction - Game initialized successfully!');
+    console.log('   Puzzle:', currentPuzzle.sentence);
   </script>
 </body>
 </html>
