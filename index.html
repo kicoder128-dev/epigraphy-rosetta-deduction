@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Epigraphy: The Rosetta Deduction</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="game-container">
+    <header class="game-header">
+      <h1>🏺 Rosetta Deduction</h1>
+      <p class="subtitle">Constraint Satisfaction · Archaeological Cryptanalysis</p>
+    </header>
+
+    <section class="temple-wall" id="templeWall">
+      <div class="glyph-inscription" id="glyphDisplay"></div>
+      <div class="clue-badge" id="contextClue">🏛️ temple script</div>
+    </section>
+
+    <section class="fragments-container" id="fragmentsContainer"></section>
+
+    <section class="matrix-area">
+      <h2 class="matrix-title">🔍 Logic Matrix <span class="csp-indicator">CSP Active</span></h2>
+      <div class="logic-grid" id="logicGrid"></div>
+      <div class="csp-status" id="cspStatus">⚡ constraints: initialized</div>
+      <div class="deduction-log" id="deductionLog"></div>
+    </section>
+
+    <section class="notebook-section">
+      <h2 class="notebook-title">📓 Field Notebook</h2>
+      <div class="syntax-display" id="deducedSyntax"></div>
+      <div class="translation-input">
+        <input 
+          type="text" 
+          id="translationInput" 
+          placeholder="Enter hypothesized translation..." 
+          autocomplete="off"
+          aria-label="Translation hypothesis input"
+        >
+        <button class="validate-btn" id="validateBtn">🔎 Validate Logical Set</button>
+      </div>
+      <div class="message-box" id="messageBox" role="alert"></div>
+      <div class="button-group">
+        <button class="reset-btn" id="resetDeduction">↺ Reset Assignments</button>
+        <button class="hint-btn" id="hintBtn">💡 Partial Clue</button>
+        <button class="new-puzzle-btn" id="newPuzzleBtn">🌀 New Language</button>
+      </div>
+      <p class="instructions">
+        💡 Assign meanings to all glyphs using fragment clues. CSP validates consistency.
+      </p>
+    </section>
+  </div>
+
+  <script src="js/csp-engine.js"></script>
+  <script src="js/puzzle-generator.js"></script>
+  <script src="js/ui-renderer.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
